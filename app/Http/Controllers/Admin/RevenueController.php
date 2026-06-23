@@ -117,4 +117,14 @@ class RevenueController extends Controller
 
         abort(404);
     }
+
+    public function reset(Request $request)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \App\Models\Consultation::truncate();
+        \App\Models\Transaction::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        return redirect()->route('admin.revenue.index')->with('success', 'Semua data pendapatan dan riwayat transaksi telah direset ke Rp 0.');
+    }
 }

@@ -82,6 +82,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Laporan Pendapatan
         Route::get('/pendapatan', [RevenueController::class, 'index'])->name('revenue.index');
         Route::get('/pendapatan/export/{format}', [RevenueController::class, 'export'])->name('revenue.export');
+        Route::delete('/pendapatan/reset', [RevenueController::class, 'reset'])->name('revenue.reset');
 
         // Pengaturan Harga & Diskon
         Route::get('/pengaturan/harga', [\App\Http\Controllers\Admin\SettingController::class, 'pricing'])->name('settings.pricing');
