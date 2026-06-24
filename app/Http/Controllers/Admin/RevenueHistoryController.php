@@ -44,7 +44,7 @@ class RevenueHistoryController extends Controller
             });
         }
 
-        $transactions = $query->orderBy('deleted_at', 'desc')->paginate(20);
+        $transactions = $query->orderBy('created_at', 'desc')->paginate(20);
 
         $months = [
             1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
