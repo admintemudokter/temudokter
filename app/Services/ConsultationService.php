@@ -6,7 +6,7 @@ use App\Models\Consultation;
 use App\Models\Doctor;
 use App\Models\Message;
 use App\Mail\ConsultationSummaryMail;
-use App\Mail\PatientHistoryCodeNotification;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
@@ -87,12 +87,7 @@ class ConsultationService
 
         $this->addSystemMessage($consultation, "Konsultasi telah diakhiri oleh {$endedBy}.");
 
-        // Send History Code via Email
-        try {
-            Mail::to($consultation->patient->email)->send(new PatientHistoryCodeNotification($consultation));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Gagal mengirim email kode riwayat: ' . $e->getMessage());
-        }
+
     }
 
     /**
