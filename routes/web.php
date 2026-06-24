@@ -17,8 +17,17 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // =============================================================================
-// PUBLIC — Landing Page & History
 // =============================================================================
+
+// Temporary Route for Migration
+Route::get('/migrate-database-now', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return 'Migrasi berhasil dijalankan! Silakan hapus route ini nanti.';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/riwayat', [HomeController::class, 'historyForm'])->name('history.form');
 Route::post('/riwayat', [HomeController::class, 'checkHistory'])->name('history.check')->middleware('throttle:10,1');
