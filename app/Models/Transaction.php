@@ -51,9 +51,10 @@ class Transaction extends Model
         return match ($this->payment_method) {
             'qris'            => 'QRIS',
             'bank_transfer'   => 'Manual Transfer Bank',
+            'manual'          => 'Manual',
             'virtual_account' => 'Virtual Account',
             'ewallet'         => 'E-Wallet',
-            default           => '-',
+            default           => strtoupper(str_replace('_', ' ', $this->payment_method)),
         };
     }
 }

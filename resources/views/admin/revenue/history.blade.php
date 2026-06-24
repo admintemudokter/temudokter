@@ -60,14 +60,16 @@
                         <div class="text-sm font-semibold text-slate-700">{{ $t->invoice_number }}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="text-sm text-slate-700">{{ $t->consultation->patient->name ?? '-' }}</div>
+                        <div class="text-sm text-slate-700">{{ $t->consultation->patient->full_name ?? '-' }}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex flex-wrap items-center gap-1.5">
+                            @if($t->method_label !== '-')
                             <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium border border-slate-200">
                                 {{ $t->method_label }}
                             </span>
-                            @if($t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank']))
+                            @endif
+                            @if($t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank', 'manual', 'bank_transfer']))
                             <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-medium border border-emerald-100">
                                 {{ strtoupper($t->payment_provider) }}
                             </span>

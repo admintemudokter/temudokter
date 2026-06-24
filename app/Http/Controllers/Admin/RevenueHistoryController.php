@@ -113,9 +113,9 @@ class RevenueHistoryController extends Controller
                 fputcsv($file, [
                     $t->invoice_number,
                     $t->created_at->format('d/m/Y H:i'),
-                    $t->consultation->patient->name ?? '-',
-                    strtoupper(str_replace('_', ' ', $t->payment_method)),
-                    strtoupper($t->payment_provider),
+                    $t->consultation->patient->full_name ?? '-',
+                    $t->method_label !== '-' ? $t->method_label : '',
+                    !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank', 'manual', 'bank_transfer']) ? strtoupper($t->payment_provider) : '',
                     'Rp ' . number_format($t->amount, 0, ',', '.')
                 ]);
             }

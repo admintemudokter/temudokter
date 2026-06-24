@@ -43,8 +43,8 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ $t->created_at->format('d/m/Y H:i') }}</td>
                     <td>{{ $t->invoice_number }}</td>
-                    <td>{{ $t->consultation->patient->name ?? '-' }}</td>
-                    <td>{{ $t->method_label }} {{ $t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank']) ? ' - ' . strtoupper($t->payment_provider) : '' }}</td>
+                    <td>{{ $t->consultation->patient->full_name ?? '-' }}</td>
+                    <td>{{ $t->method_label !== '-' ? $t->method_label : '' }} {{ $t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank', 'manual', 'bank_transfer']) ? ($t->method_label !== '-' ? ' - ' : '') . strtoupper($t->payment_provider) : '' }}</td>
                     <td class="text-right">Rp {{ number_format($t->amount, 0, ',', '.') }}</td>
                 </tr>
             @empty
