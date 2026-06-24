@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Mulai Konsultasi – TemuDokter')
-@section('meta_description', 'Isi formulir konsultasi online TemuDokter. Data Anda aman dan rahasia.')
+@section('title', 'Mulai Konsultasi – Temu Dokter')
+@section('meta_description', 'Isi formulir konsultasi online Temu Dokter. Data Anda aman dan rahasia.')
 
 @section('content')
 

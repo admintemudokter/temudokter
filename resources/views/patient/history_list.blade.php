@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Pilih Riwayat Konsultasi – TemuDokter')
+@section('title', 'Pilih Riwayat Konsultasi – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-slate-50 py-10">

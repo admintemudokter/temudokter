@@ -17,5 +17,5 @@ Cek Pembayaran
 </x-mail::button>
 
 Terima kasih,<br>
-Sistem TemuDokter
+Sistem Temu Dokter
 </x-mail::message>

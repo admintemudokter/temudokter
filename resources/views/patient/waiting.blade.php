@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Menunggu Verifikasi – TemuDokter')
+@section('title', 'Menunggu Verifikasi – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-brand-950 via-brand-900 to-emerald-900 flex flex-col items-center justify-center p-6"

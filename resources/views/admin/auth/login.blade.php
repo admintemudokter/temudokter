@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login Admin – TemuDokter')
+@section('title', 'Login Admin – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-slate-900 via-brand-950 to-slate-900 flex items-center justify-center p-4">
@@ -12,7 +12,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                     </svg>
                 </div>
-                <span class="font-heading font-bold text-xl text-white">Konsul<span class="text-teal-400">KU</span></span>
+                <span class="font-heading font-bold text-xl text-white">Temu<span class="text-teal-400">Dokter</span></span>
             </div>
             <p class="text-white/50 text-sm mt-2">Admin Dashboard</p>
         </div>
@@ -20,7 +20,7 @@
         <div class="card">
             <div class="px-8 pt-8 pb-6 border-b border-slate-100">
                 <h2 class="font-heading font-bold text-xl text-slate-800">Masuk Admin</h2>
-                <p class="text-slate-500 text-sm mt-1">Login untuk mengelola sistem TemuDokter</p>
+                <p class="text-slate-500 text-sm mt-1">Login untuk mengelola sistem Temu Dokter</p>
             </div>
             <div class="px-8 py-6">
                 @if($errors->any())
@@ -36,7 +36,7 @@
                         <label class="form-label" for="email">Email</label>
                         <input type="email" id="email" name="email" autocomplete="email"
                                class="form-input @error('email') border-rose-400 @enderror"
-                               value="{{ old('email') }}" placeholder="admin@konsulku.id" required autofocus>
+                               value="{{ old('email') }}" placeholder="admin@temudokter.id" required autofocus>
                     </div>
                     <div>
                         <label class="form-label" for="password">Password</label>

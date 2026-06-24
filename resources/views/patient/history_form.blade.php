@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Cek Riwayat Konsultasi – TemuDokter')
+@section('title', 'Cek Riwayat Konsultasi – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <a href="{{ route('home') }}" class="flex justify-center items-center gap-2 mb-6 hover:opacity-80 transition-opacity">
-            <img src="{{ asset('images/logo.png') }}" alt="TemuDokter Logo" class="h-16 w-auto">
+            <img src="{{ asset('images/logo.png') }}" alt="Temu Dokter Logo" class="h-16 w-auto">
         </a>
         <h2 class="mt-6 text-center text-3xl font-extrabold text-slate-900 font-heading">
             Cek Riwayat Konsultasi

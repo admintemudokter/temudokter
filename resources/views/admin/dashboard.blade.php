@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Dashboard')
 @section('page_title', 'Dashboard')
-@section('page_subtitle', 'Ringkasan operasional TemuDokter')
+@section('page_subtitle', 'Ringkasan operasional Temu Dokter')
 
 @section('content')
 <div x-data="adminDashboard()" x-init="startPolling()">

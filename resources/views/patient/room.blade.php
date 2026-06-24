@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Ruang Konsultasi {{ $consultation->invoice_number }} – TemuDokter</title>
+    <title>Ruang Konsultasi {{ $consultation->invoice_number }} – Temu Dokter</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-100 overflow-hidden h-screen"
@@ -16,7 +16,7 @@
     {{-- ===== TOP HEADER ===== --}}
     <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between flex-shrink-0 shadow-sm relative z-20">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('images/logo.png') }}" alt="TemuDokter Logo" class="h-10 w-auto">
+            <img src="{{ asset('images/logo.png') }}" alt="Temu Dokter Logo" class="h-10 w-auto">
             <div>
                 <p class="text-xs text-slate-500 font-medium">{{ $consultation->invoice_number }}</p>
             </div>

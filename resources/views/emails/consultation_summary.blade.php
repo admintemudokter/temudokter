@@ -11,7 +11,7 @@
         
         <p>Halo, <strong>{{ $consultation->patient->full_name }}</strong>,</p>
         
-        <p>Terima kasih telah menggunakan layanan TemuDokter. Konsultasi Anda telah selesai.</p>
+        <p>Terima kasih telah menggunakan layanan Temu Dokter. Konsultasi Anda telah selesai.</p>
 
         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <p style="margin: 0 0 10px;"><strong>Detail Konsultasi:</strong></p>

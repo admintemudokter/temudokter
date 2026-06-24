@@ -14,7 +14,7 @@
         <div class="flex items-center justify-between h-20 transition-all duration-300">
             {{-- Logo (Kiri) --}}
             <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center gap-3 group">
-                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="TemuDokter Logo" class="h-16 w-auto rounded-xl shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="Temu Dokter Logo" class="h-16 w-auto rounded-xl shadow-sm group-hover:scale-105 transition-transform duration-300">
                 <div class="hidden sm:flex flex-col">
                     <span class="font-heading font-extrabold text-xl tracking-tight text-slate-800 leading-none">Temu Dokter</span>
                 </div>
@@ -509,7 +509,7 @@
 
         @php
         $faqs = [
-            ['q'=>'Bagaimana cara konsultasi di TemuDokter?','a'=>'Cukup isi formulir konsultasi dengan data diri dan keluhan Anda, pilih metode pembayaran, upload bukti bayar, lalu tunggu admin memverifikasi. Setelah terverifikasi, Anda akan dihubungkan dengan dokter dan dapat langsung berkonsultasi melalui ruang chat.'],
+            ['q'=>'Bagaimana cara konsultasi di Temu Dokter?','a'=>'Cukup isi formulir konsultasi dengan data diri dan keluhan Anda, pilih metode pembayaran, upload bukti bayar, lalu tunggu admin memverifikasi. Setelah terverifikasi, Anda akan dihubungkan dengan dokter dan dapat langsung berkonsultasi melalui ruang chat.'],
             ['q'=>'Berapa lama proses verifikasi pembayaran?','a'=>'Proses verifikasi pembayaran dilakukan oleh admin kami biasanya dalam waktu 5–15 menit di jam kerja. Anda dapat memantau status pembayaran secara real-time di halaman tunggu.'],
             ['q'=>'Apakah data dan dokumen medis saya aman?','a'=>'Ya, sepenuhnya aman. Semua dokumen medis, bukti pembayaran, dan resep disimpan di penyimpanan privat yang tidak dapat diakses publik. Akses file menggunakan tautan terenkripsi yang unik untuk setiap pengguna.'],
             ['q'=>'Bagaimana cara menerima resep dari dokter?','a'=>'Setelah konsultasi selesai, dokter akan mengupload resep digital (PDF atau gambar). Anda dapat mengunduh resep tersebut dari halaman ringkasan konsultasi menggunakan tautan aman yang hanya bisa diakses oleh Anda.'],
@@ -615,7 +615,7 @@
             {{-- Brand Column --}}
             <div class="md:col-span-5 lg:col-span-4">
                 <a href="{{ route('home') }}" class="inline-block mb-6 bg-white p-2.5 rounded-xl shadow-lg">
-                    <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="TemuDokter Logo" class="h-12 w-auto rounded-lg">
+                    <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="Temu Dokter Logo" class="h-12 w-auto rounded-lg">
                 </a>
                 <p class="text-sm leading-relaxed text-slate-400 mb-6">
                     Temu Dokter adalah platform layanan kesehatan digital yang memudahkan masyarakat untuk berkonsultasi dengan dokter secara online maupun pemesanan layanan Homecare langsung ke rumah Anda.

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survei Kepuasan Pasien – TemuDokter</title>
+    <title>Survei Kepuasan Pasien – Temu Dokter</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4">
@@ -84,7 +84,7 @@
                     </span>
                 </button>
                 <p class="text-xs text-slate-400 text-center mt-4">
-                    Ulasan Anda sangat berarti bagi kami untuk meningkatkan kualitas layanan TemuDokter.
+                    Ulasan Anda sangat berarti bagi kami untuk meningkatkan kualitas layanan Temu Dokter.
                 </p>
             </form>
         </div>

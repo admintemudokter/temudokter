@@ -11,7 +11,7 @@
 </style>
 @endpush
 
-@section('title', 'Invoice {{ $consultation->invoice_number }} – TemuDokter')
+@section('title', 'Invoice {{ $consultation->invoice_number }} – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-slate-50" x-data="invoicePage('{{ $consultation->invoice_number }}', '{{ route('patient.payment.select', $consultation->invoice_number) }}', '{{ route('patient.payment.refresh', $consultation->invoice_number) }}', '{{ route('patient.payment.proof', $consultation->invoice_number) }}', {{ ($consultation->transaction && $consultation->transaction->payment_status !== 'rejected') ? 'true' : 'false' }}, '{{ $consultation->transaction?->payment_method ?? '' }}', '{{ $consultation->transaction?->payment_provider ?? '' }}', '{{ $consultation->transaction?->latestPaymentSession?->simulated_number ?? '' }}', {{ $consultation->transaction?->latestPaymentSession?->remaining_seconds ?? 3600 }}, '{{ $consultation->created_at->toIso8601String() }}')">
@@ -20,7 +20,7 @@
     <div class="bg-white border-b border-slate-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <img src="{{ asset('images/logo.png') }}" alt="TemuDokter Logo" class="h-10 w-auto">
+                <img src="{{ asset('images/logo.png') }}" alt="Temu Dokter Logo" class="h-10 w-auto">
             </div>
             <div class="text-sm text-slate-500">Invoice Pembayaran</div>
         </div>

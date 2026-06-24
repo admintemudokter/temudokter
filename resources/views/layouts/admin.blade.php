@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') – TemuDokter Admin</title>
+    <title>@yield('title', 'Dashboard') – Temu Dokter Admin</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
@@ -37,7 +37,7 @@
                style="transition: transform 0.3s ease;">
             {{-- Logo --}}
             <div class="flex items-center gap-2.5 px-6 py-5 border-b border-white/10">
-                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="TemuDokter Logo" class="h-10 w-auto rounded-lg shadow-sm">
+                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="Temu Dokter Logo" class="h-10 w-auto rounded-lg shadow-sm">
                 <div>
                     <div class="text-xs text-white/40">Admin Panel</div>
                 </div>
@@ -124,7 +124,7 @@
                     </button>
                     <div>
                         <h1 class="font-heading font-bold text-slate-800">@yield('page_title', 'Dashboard')</h1>
-                        <p class="text-xs text-slate-500">@yield('page_subtitle', 'TemuDokter Admin Panel')</p>
+                        <p class="text-xs text-slate-500">@yield('page_subtitle', 'Temu Dokter Admin Panel')</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 text-sm text-slate-500">

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') – TemuDokter Dokter</title>
+    <title>@yield('title', 'Dashboard') – Temu Dokter Dokter</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
@@ -35,7 +35,7 @@
                :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
                style="transition: transform 0.3s ease;">
             <div class="flex items-center gap-2.5 px-6 py-5 border-b border-white/10">
-                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="TemuDokter Logo" class="h-10 w-auto filter brightness-0 invert">
+                <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="Temu Dokter Logo" class="h-10 w-auto filter brightness-0 invert">
                 <div>
                     <div class="font-heading font-bold text-white">Portal Dokter</div>
                 </div>

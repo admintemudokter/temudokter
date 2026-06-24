@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Ringkasan Konsultasi – TemuDokter')
+@section('title', 'Ringkasan Konsultasi – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-brand-950 via-brand-900 to-emerald-900 flex items-center justify-center p-6">
@@ -13,7 +13,7 @@
                 </svg>
             </div>
             <h1 class="font-heading text-2xl font-bold text-white mb-2">Konsultasi Selesai!</h1>
-            <p class="text-white/60">Terima kasih telah menggunakan TemuDokter.</p>
+            <p class="text-white/60">Terima kasih telah menggunakan Temu Dokter.</p>
         </div>
 
         <div class="card">

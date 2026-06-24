@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Kode Akses Riwayat Medis Anda - TemuDokter</title>
+    <title>Kode Akses Riwayat Medis Anda - Temu Dokter</title>
     <style>
         body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px; color: #334155; }
         .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
@@ -24,7 +24,7 @@
         </div>
         <div class="content">
             <p>Halo <strong>{{ $consultation->patient->full_name }}</strong>,</p>
-            <p>Terima kasih telah menggunakan layanan TemuDokter. Konsultasi medis Anda dengan <strong>{{ $consultation->doctor->name }}</strong> (Invoice: {{ $consultation->invoice_number }}) telah selesai.</p>
+            <p>Terima kasih telah menggunakan layanan Temu Dokter. Konsultasi medis Anda dengan <strong>{{ $consultation->doctor->name }}</strong> (Invoice: {{ $consultation->invoice_number }}) telah selesai.</p>
             
             <p>Berikut adalah kode unik untuk mengakses riwayat percakapan, resep obat, dan surat medis Anda di kemudian hari:</p>
             
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="footer">
-            &copy; {{ date('Y') }} TemuDokter. Semua Hak Dilindungi.<br>
+            &copy; {{ date('Y') }} Temu Dokter. Semua Hak Dilindungi.<br>
             Pesan ini dikirim secara otomatis oleh sistem. Mohon tidak membalas email ini.
         </div>
     </div>

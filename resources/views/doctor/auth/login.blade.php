@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login Dokter – TemuDokter')
+@section('title', 'Login Dokter – Temu Dokter')
 
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 flex items-center justify-center p-4">
@@ -13,7 +13,7 @@
                 </div>
                 <span class="font-heading font-bold text-xl text-white">Portal <span class="text-emerald-400">Dokter</span></span>
             </div>
-            <p class="text-white/50 text-sm mt-2">TemuDokter Doctor Dashboard</p>
+            <p class="text-white/50 text-sm mt-2">Temu Dokter Doctor Dashboard</p>
         </div>
 
         <div class="card">
@@ -35,7 +35,7 @@
                         <label class="form-label" for="email">Email</label>
                         <input type="email" id="email" name="email" autocomplete="email"
                                class="form-input @error('email') border-rose-400 @enderror"
-                               value="{{ old('email') }}" placeholder="dokter@konsulku.id" required autofocus>
+                               value="{{ old('email') }}" placeholder="dokter@temudokter.id" required autofocus>
                     </div>
                     <div>
                         <label class="form-label" for="password">Password</label>
