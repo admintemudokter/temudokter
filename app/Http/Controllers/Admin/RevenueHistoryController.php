@@ -12,9 +12,18 @@ class RevenueHistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Transaction::onlyTrashed()->with(['consultation' => function ($q) {
-            $q->withTrashed()->with('patient');
+        $lastReset = \App\Models\Setting::getValue('last_revenue_reset_at');
+        
+        $query = Transaction::with(['consultation' => function ($q) {
+            $q->with('patient');
         }])->where('payment_status', 'approved');
+
+        if ($lastReset) {
+            $query->where('created_at', '<=', $lastReset);
+        } else {
+            // Jika belum pernah reset, riwayat kosong
+            $query->where('id', 0);
+        }
 
         // Filter Month
         $month = $request->input('month', date('n'));
@@ -43,10 +52,16 @@ class RevenueHistoryController extends Controller
             9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
         ];
 
-        // Get available years from trashed transactions
-        $years = Transaction::onlyTrashed()
-            ->selectRaw('YEAR(created_at) as year')
-            ->distinct()
+        // Get available years from transactions
+        $years = Transaction::selectRaw('YEAR(created_at) as year');
+            
+        if ($lastReset) {
+            $years->where('created_at', '<=', $lastReset);
+        } else {
+            $years->where('id', 0);
+        }
+
+        $years = $years->distinct()
             ->orderBy('year', 'desc')
             ->pluck('year')
             ->toArray();
@@ -63,14 +78,23 @@ class RevenueHistoryController extends Controller
         $month = $request->input('month', date('n'));
         $year = $request->input('year', date('Y'));
         
-        $transactions = Transaction::onlyTrashed()->with(['consultation' => function ($q) {
-            $q->withTrashed()->with('patient');
+        $lastReset = \App\Models\Setting::getValue('last_revenue_reset_at');
+
+        $query = Transaction::with(['consultation' => function ($q) {
+            $q->with('patient');
         }])
         ->where('payment_status', 'approved')
         ->whereMonth('created_at', $month)
         ->whereYear('created_at', $year)
-        ->orderBy('deleted_at', 'desc')
-        ->get();
+        ->orderBy('created_at', 'desc');
+
+        if ($lastReset) {
+            $query->where('created_at', '<=', $lastReset);
+        } else {
+            $query->where('id', 0);
+        }
+
+        $transactions = $query->get();
 
         $filename = "riwayat_pendapatan_{$year}_{$month}.csv";
         $headers = [
@@ -87,7 +111,7 @@ class RevenueHistoryController extends Controller
 
             foreach ($transactions as $t) {
                 fputcsv($file, [
-                    $t->deleted_at->format('d/m/Y H:i'),
+                    $t->created_at->format('d/m/Y H:i'),
                     $t->invoice_number,
                     $t->created_at->format('d/m/Y H:i'),
                     $t->consultation->patient->name ?? '-',
@@ -107,14 +131,23 @@ class RevenueHistoryController extends Controller
         $month = $request->input('month', date('n'));
         $year = $request->input('year', date('Y'));
         
-        $transactions = Transaction::onlyTrashed()->with(['consultation' => function ($q) {
-            $q->withTrashed()->with('patient');
+        $lastReset = \App\Models\Setting::getValue('last_revenue_reset_at');
+
+        $query = Transaction::with(['consultation' => function ($q) {
+            $q->with('patient');
         }])
         ->where('payment_status', 'approved')
         ->whereMonth('created_at', $month)
         ->whereYear('created_at', $year)
-        ->orderBy('deleted_at', 'desc')
-        ->get();
+        ->orderBy('created_at', 'desc');
+
+        if ($lastReset) {
+            $query->where('created_at', '<=', $lastReset);
+        } else {
+            $query->where('id', 0);
+        }
+
+        $transactions = $query->get();
 
         $monthName = [
             1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',

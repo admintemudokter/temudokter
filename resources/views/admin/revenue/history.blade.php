@@ -42,7 +42,7 @@
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="bg-slate-50/50 border-b border-slate-100">
-                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tanggal Hapus</th>
+                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tgl Transaksi</th>
                     <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Invoice</th>
                     <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Pasien</th>
                     <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Metode</th>
@@ -53,12 +53,11 @@
                 @forelse($transactions as $t)
                 <tr class="hover:bg-slate-50/50 transition-colors">
                     <td class="px-6 py-4">
-                        <div class="text-sm font-medium text-slate-800">{{ $t->deleted_at->format('d M Y') }}</div>
-                        <div class="text-xs text-slate-500">{{ $t->deleted_at->format('H:i') }}</div>
+                        <div class="text-sm font-medium text-slate-800">{{ $t->created_at->format('d M Y') }}</div>
+                        <div class="text-xs text-slate-500">{{ $t->created_at->format('H:i') }}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="text-sm font-semibold text-slate-700">{{ $t->invoice_number }}</div>
-                        <div class="text-xs text-slate-500">{{ $t->created_at->format('d/m/y H:i') }}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="text-sm text-slate-700">{{ $t->consultation->patient->name ?? '-' }}</div>

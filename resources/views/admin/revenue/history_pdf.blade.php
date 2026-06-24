@@ -28,7 +28,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal Hapus</th>
+                <th>Tanggal Transaksi</th>
                 <th>Invoice</th>
                 <th>Pasien</th>
                 <th>Metode Bayar</th>
@@ -41,7 +41,7 @@
                 @php $total += $t->amount; @endphp
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ $t->deleted_at->format('d/m/Y H:i') }}</td>
+                    <td>{{ $t->created_at->format('d/m/Y H:i') }}</td>
                     <td>{{ $t->invoice_number }}</td>
                     <td>{{ $t->consultation->patient->name ?? '-' }}</td>
                     <td>{{ strtoupper($t->payment_provider) }}</td>

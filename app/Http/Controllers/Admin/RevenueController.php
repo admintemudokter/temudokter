@@ -18,39 +18,57 @@ class RevenueController extends Controller
         $month = $request->input('month', date('m'));
         $year = $request->input('year', date('Y'));
 
+        $lastReset = \App\Models\Setting::getValue('last_revenue_reset_at');
+
         // Hitung statistik
-        $totalRevenue = Transaction::where('payment_status', 'approved')->sum('amount');
-        
-        $todayRevenue = Transaction::where('payment_status', 'approved')
-                                   ->whereDate('created_at', $today)
-                                   ->sum('amount');
-                                   
-        $yesterdayRevenue = Transaction::where('payment_status', 'approved')
-                                       ->whereDate('created_at', $yesterday)
-                                       ->sum('amount');
+        $totalRevenueQuery = Transaction::where('payment_status', 'approved');
+        $todayRevenueQuery = Transaction::where('payment_status', 'approved')
+                                   ->whereDate('created_at', $today);
+        $yesterdayRevenueQuery = Transaction::where('payment_status', 'approved')
+                                       ->whereDate('created_at', $yesterday);
+
+        if ($lastReset) {
+            $totalRevenueQuery->where('created_at', '>', $lastReset);
+            $todayRevenueQuery->where('created_at', '>', $lastReset);
+            $yesterdayRevenueQuery->where('created_at', '>', $lastReset);
+        }
+
+        $totalRevenue = $totalRevenueQuery->sum('amount');
+        $todayRevenue = $todayRevenueQuery->sum('amount');
+        $yesterdayRevenue = $yesterdayRevenueQuery->sum('amount');
 
         // Dapatkan rincian pendapatan harian (Group by Date)
-        $dailyRevenues = Transaction::select(
+        $dailyRevenuesQuery = Transaction::select(
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('COUNT(id) as total_transactions'),
                 DB::raw('SUM(amount) as total_revenue')
             )
             ->where('payment_status', 'approved')
             ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
-            ->groupBy('date')
+            ->whereYear('created_at', $year);
+
+        if ($lastReset) {
+            $dailyRevenuesQuery->where('created_at', '>', $lastReset);
+        }
+
+        $dailyRevenues = $dailyRevenuesQuery->groupBy('date')
             ->orderBy('date', 'desc')
             ->paginate(15)
             ->withQueryString();
 
-        $chartDataRaw = Transaction::select(
+        $chartDataRawQuery = Transaction::select(
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('SUM(amount) as total_revenue')
             )
             ->where('payment_status', 'approved')
             ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
-            ->groupBy('date')
+            ->whereYear('created_at', $year);
+
+        if ($lastReset) {
+            $chartDataRawQuery->where('created_at', '>', $lastReset);
+        }
+
+        $chartDataRaw = $chartDataRawQuery->groupBy('date')
             ->orderBy('date', 'asc')
             ->get();
 
@@ -120,10 +138,9 @@ class RevenueController extends Controller
 
     public function reset(Request $request)
     {
-        // Gunakan SoftDelete agar masuk ke menu Riwayat, bukan truncate()
-        \App\Models\Consultation::query()->delete();
-        \App\Models\Transaction::query()->delete();
+        // Simpan waktu reset terakhir
+        \App\Models\Setting::setValue('last_revenue_reset_at', now()->toDateTimeString());
 
-        return redirect()->route('admin.revenue.index')->with('success', 'Semua data pendapatan telah direset ke Rp 0. Data tersimpan di Riwayat Pendapatan.');
+        return redirect()->route('admin.revenue.index')->with('success', 'Semua data pendapatan telah direset ke Rp 0. Data sebelumnya tersimpan di Riwayat Pendapatan.');
     }
 }
