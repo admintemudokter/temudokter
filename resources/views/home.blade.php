@@ -366,7 +366,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">Respon Seketika</h3>
-                <p class="text-slate-500 leading-relaxed">Terhubung dengan dokter dalam hitungan menit. Tidak perlu menghabiskan waktu antri panjang seperti di klinik atau rumah sakit.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Terhubung dengan dokter dalam hitungan menit. Tidak perlu menghabiskan waktu antri panjang seperti di klinik atau rumah sakit.</p>
             </div>
 
             {{-- Benefit 2 --}}
@@ -375,7 +375,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">Dokter Terverifikasi</h3>
-                <p class="text-slate-500 leading-relaxed">Semua mitra dokter kami memiliki Surat Tanda Registrasi (STR) aktif dan telah melalui proses verifikasi kredensial yang ketat.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Semua mitra dokter kami memiliki Surat Tanda Registrasi (STR) aktif dan telah melalui proses verifikasi kredensial yang ketat.</p>
             </div>
 
             {{-- Benefit 3 --}}
@@ -384,7 +384,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">Privasi Terjamin</h3>
-                <p class="text-slate-500 leading-relaxed">Seluruh data medis, percakapan, dan dokumen Anda disimpan dalam penyimpanan privat dengan standar enkripsi keamanan tinggi.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Seluruh data medis, percakapan, dan dokumen Anda disimpan dalam penyimpanan privat dengan standar enkripsi keamanan tinggi.</p>
             </div>
 
             {{-- Benefit 4 --}}
@@ -393,7 +393,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">E-Resep Praktis</h3>
-                <p class="text-slate-500 leading-relaxed">Dapatkan resep digital resmi dari dokter langsung setelah sesi konsultasi selesai. Dapat diunduh kapan saja Anda butuhkan.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Dapatkan resep digital resmi dari dokter langsung setelah sesi konsultasi selesai. Dapat diunduh kapan saja Anda butuhkan.</p>
             </div>
 
             {{-- Benefit 5 --}}
@@ -402,7 +402,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">Berbagi Dokumen</h3>
-                <p class="text-slate-500 leading-relaxed">Unggah foto gejala kulit, hasil tes laboratorium, atau rekam medis lainnya langsung dari ponsel Anda dengan format yang didukung penuh.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Unggah foto gejala kulit, hasil tes laboratorium, atau rekam medis lainnya langsung dari ponsel Anda dengan format yang didukung penuh.</p>
             </div>
 
             {{-- Benefit 6 --}}
@@ -411,7 +411,7 @@
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
                 </div>
                 <h3 class="font-heading font-bold text-slate-900 text-xl mb-3">Live Chat Interaktif</h3>
-                <p class="text-slate-500 leading-relaxed">Ruang konsultasi dengan teknologi modern memberikan pengalaman chat medis yang mengalir lancar dan responsif secara real-time.</p>
+                <p class="text-slate-500 leading-relaxed text-justify">Ruang konsultasi dengan teknologi modern memberikan pengalaman chat medis yang mengalir lancar dan responsif secara real-time.</p>
             </div>
         </div>
     </div>
