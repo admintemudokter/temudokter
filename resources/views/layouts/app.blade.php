@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('meta_description', 'Temu Dokter – Platform konsultasi medis online untuk wilayah Bekasi. Konsultasi cepat, dokter terverifikasi, resep digital.')">
     <title>@yield('title', 'Temu Dokter') | Platform Konsultasi Medis Online Bekasi</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
