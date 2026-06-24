@@ -14,7 +14,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                 </svg>
             </div>
-            <span class="font-heading font-bold text-white">Temu<span class="text-teal-300">Dokter</span></span>
+             <span class="font-heading font-bold text-xl text-white">Temu <span class="text-emerald-400">Dokter</span></span>
         </a>
         <div class="text-white/60 text-sm">Formulir Homecare</div>
     </div>
@@ -49,6 +49,17 @@
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
                 <form action="{{ route('patient.homecare.store') }}" method="POST" enctype="multipart/form-data" id="homecare-form">
                     @csrf
+
+                    @if($errors->any())
+                        <div class="m-8 p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-600">
+                            <p class="font-bold mb-2">Terdapat kesalahan pada pengisian form:</p>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     {{-- ===== STEP 1: Personal Info ===== --}}
                     <div x-show="step === 1" x-transition:enter="transition ease-out duration-300"
@@ -121,7 +132,7 @@
                                 <div>
                                     <label class="form-label" for="occupation">Pekerjaan <span class="text-rose-500" x-show="!form.no_occupation">*</span></label>
                                     <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta"
-                                           class="form-input" x-model="form.occupation" :disabled="form.no_occupation" :required="!form.no_occupation"
+                                           class="form-input" x-model="form.occupation" x-bind:readonly="form.no_occupation" :required="!form.no_occupation"
                                            :class="form.no_occupation ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : ''">
                                     <div class="mt-2 flex items-center gap-2">
                                         <input type="checkbox" id="no_occupation" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" 
@@ -140,16 +151,18 @@
                                     {{-- Province --}}
                                     <div>
                                         <label class="form-label" for="province">Provinsi <span class="text-rose-500">*</span></label>
-                                        <select id="province" name="province" class="form-select bg-slate-50 cursor-not-allowed" readonly required>
+                                        <select id="province" class="form-select bg-slate-50 cursor-not-allowed" disabled required>
                                             <option value="Jawa Barat" selected>Jawa Barat</option>
                                         </select>
+                                        <input type="hidden" name="province" value="Jawa Barat">
                                     </div>
                                     {{-- City --}}
                                     <div>
                                         <label class="form-label" for="city">Kabupaten/Kota <span class="text-rose-500">*</span></label>
-                                        <select id="city" name="city" class="form-select bg-slate-50 cursor-not-allowed" readonly required>
+                                        <select id="city" class="form-select bg-slate-50 cursor-not-allowed" disabled required>
                                             <option value="Kota Bekasi" selected>Kota Bekasi</option>
                                         </select>
+                                        <input type="hidden" name="city" value="Kota Bekasi">
                                     </div>
                                 </div>
 
