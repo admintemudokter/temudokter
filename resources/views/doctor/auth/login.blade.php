@@ -13,7 +13,7 @@
                 </div>
                 <span class="font-heading font-bold text-xl text-white">Portal <span class="text-emerald-400">Dokter</span></span>
             </div>
-            <p class="text-white/50 text-sm mt-2">Temu Dokter Doctor Dashboard</p>
+            <p class="text-white/50 text-sm mt-2">Temu Dokter Dashboard</p>
         </div>
 
         <div class="card">
