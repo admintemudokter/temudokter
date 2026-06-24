@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PaymentVerificationController;
 use App\Http\Controllers\Admin\RevenueController;
+use App\Http\Controllers\Admin\RevenueHistoryController;
 use App\Http\Controllers\Admin\ConsultationController as AdminConsultationController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\AuthController as DoctorAuthController;
@@ -83,6 +84,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pendapatan', [RevenueController::class, 'index'])->name('revenue.index');
         Route::get('/pendapatan/export/{format}', [RevenueController::class, 'export'])->name('revenue.export');
         Route::delete('/pendapatan/reset', [RevenueController::class, 'reset'])->name('revenue.reset');
+        
+        // Riwayat Pendapatan
+        Route::get('/pendapatan/riwayat', [RevenueHistoryController::class, 'index'])->name('revenue.history.index');
+        Route::get('/pendapatan/riwayat/export/csv', [RevenueHistoryController::class, 'exportCsv'])->name('revenue.history.export_csv');
+        Route::get('/pendapatan/riwayat/export/pdf', [RevenueHistoryController::class, 'exportPdf'])->name('revenue.history.export_pdf');
 
         // Pengaturan Harga & Diskon
         Route::get('/pengaturan/harga', [\App\Http\Controllers\Admin\SettingController::class, 'pricing'])->name('settings.pricing');

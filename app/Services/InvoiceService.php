@@ -20,7 +20,8 @@ class InvoiceService
 
         // Find highest sequence today
         $todayPattern = $prefix . now()->format('dmy') . '%';
-        $lastInvoice = Consultation::where('invoice_number', 'like', $todayPattern)
+        $lastInvoice = Consultation::withTrashed()
+            ->where('invoice_number', 'like', $todayPattern)
             ->orderBy('invoice_number', 'desc')
             ->value('invoice_number');
 

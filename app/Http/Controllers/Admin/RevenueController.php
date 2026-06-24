@@ -120,11 +120,10 @@ class RevenueController extends Controller
 
     public function reset(Request $request)
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        \App\Models\Consultation::truncate();
-        \App\Models\Transaction::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        // Gunakan SoftDelete agar masuk ke menu Riwayat, bukan truncate()
+        \App\Models\Consultation::query()->delete();
+        \App\Models\Transaction::query()->delete();
 
-        return redirect()->route('admin.revenue.index')->with('success', 'Semua data pendapatan dan riwayat transaksi telah direset ke Rp 0.');
+        return redirect()->route('admin.revenue.index')->with('success', 'Semua data pendapatan telah direset ke Rp 0. Data tersimpan di Riwayat Pendapatan.');
     }
 }
