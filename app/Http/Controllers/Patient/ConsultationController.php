@@ -53,6 +53,31 @@ class ConsultationController extends Controller
             'drug_allergies'       => 'required|string|max:255',
             'medical_image'        => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'medical_document'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ], [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'max.string' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
+            'min.string' => 'Kolom :attribute minimal :min karakter.',
+            'file' => 'Kolom :attribute harus berupa file.',
+            'mimes' => 'Format file :attribute tidak didukung.',
+            'max.file' => 'Ukuran file :attribute maksimal 2MB.',
+            'in' => 'Pilihan :attribute tidak valid.',
+            'integer' => 'Kolom :attribute harus berupa angka.',
+            'email' => 'Format email tidak valid.'
+        ], [
+            'full_name' => 'Nama Lengkap',
+            'whatsapp_number' => 'Nomor WhatsApp',
+            'age' => 'Usia',
+            'gender' => 'Jenis Kelamin',
+            'occupation' => 'Pekerjaan',
+            'province' => 'Provinsi',
+            'city' => 'Kabupaten/Kota',
+            'district' => 'Kecamatan',
+            'village' => 'Kelurahan/Desa',
+            'rt_rw' => 'RT/RW',
+            'complaint_description' => 'Deskripsi Keluhan',
+            'drug_allergies' => 'Alergi Obat',
+            'medical_image' => 'Foto Kondisi Medis',
+            'medical_document' => 'Dokumen Medis',
         ]);
 
         // Store optional files
@@ -144,6 +169,31 @@ class ConsultationController extends Controller
             'drug_allergies'       => 'required|string|max:255',
             'medical_image'        => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'medical_document'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ], [
+            'required' => 'Kolom :attribute wajib diisi.',
+            'max.string' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
+            'min.string' => 'Kolom :attribute minimal :min karakter.',
+            'file' => 'Kolom :attribute harus berupa file.',
+            'mimes' => 'Format file :attribute tidak didukung.',
+            'max.file' => 'Ukuran file :attribute maksimal 2MB.',
+            'in' => 'Pilihan :attribute tidak valid.',
+            'integer' => 'Kolom :attribute harus berupa angka.',
+            'email' => 'Format email tidak valid.'
+        ], [
+            'full_name' => 'Nama Lengkap',
+            'whatsapp_number' => 'Nomor WhatsApp',
+            'age' => 'Usia',
+            'gender' => 'Jenis Kelamin',
+            'occupation' => 'Pekerjaan',
+            'province' => 'Provinsi',
+            'city' => 'Kabupaten/Kota',
+            'district' => 'Kecamatan',
+            'village' => 'Kelurahan/Desa',
+            'address' => 'Alamat Lengkap',
+            'complaint_description' => 'Deskripsi Keluhan',
+            'drug_allergies' => 'Alergi Obat',
+            'medical_image' => 'Foto Kondisi Medis',
+            'medical_document' => 'Dokumen Medis',
         ]);
 
         // Validate scheduling logic
