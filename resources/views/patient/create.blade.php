@@ -51,6 +51,17 @@
                 <form action="{{ route('patient.store') }}" method="POST" enctype="multipart/form-data" id="consultation-form">
                     @csrf
 
+                    @if($errors->any())
+                        <div class="m-8 p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-600">
+                            <p class="font-bold mb-2">Terdapat kesalahan pada pengisian form:</p>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     {{-- ===== STEP 1: Personal Info ===== --}}
                     <div x-show="step === 1" x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
