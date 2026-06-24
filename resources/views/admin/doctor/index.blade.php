@@ -33,7 +33,14 @@
             </div>
             <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto mt-1 sm:mt-0 pt-3 sm:pt-0 border-t border-slate-100 sm:border-0 flex-shrink-0">
                 <span class="badge-{{ $doc->status_color }} text-xs">{{ $doc->active_consultations_count }} aktif</span>
-                <a href="{{ route('admin.doctor.edit', $doc->id) }}" class="btn-secondary btn-sm">Edit</a>
+                <div class="flex gap-2">
+                    <a href="{{ route('admin.doctor.edit', $doc->id) }}" class="btn-secondary btn-sm">Edit</a>
+                    <form action="{{ route('admin.doctor.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokter ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-rose-100 text-rose-600 hover:bg-rose-200 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
         @endforeach

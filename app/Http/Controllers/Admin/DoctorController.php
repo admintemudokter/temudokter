@@ -89,4 +89,15 @@ class DoctorController extends Controller
         return redirect()->route('admin.doctor.index')
             ->with('success', "Data dokter {$doctor->name} berhasil diperbarui.");
     }
+
+    public function destroy(Doctor $doctor)
+    {
+        try {
+            $name = $doctor->name;
+            $doctor->delete();
+            return redirect()->route('admin.doctor.index')->with('success', "Dokter {$name} berhasil dihapus.");
+        } catch (\Exception $e) {
+            return redirect()->route('admin.doctor.index')->with('error', "Gagal menghapus dokter. Dokter mungkin memiliki riwayat konsultasi yang tidak bisa dihapus.");
+        }
+    }
 }

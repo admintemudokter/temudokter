@@ -124,6 +124,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/', [AdminDoctorController::class, 'store'])->name('store');
             Route::get('/{doctor}/edit', [AdminDoctorController::class, 'edit'])->name('edit');
             Route::put('/{doctor}', [AdminDoctorController::class, 'update'])->name('update');
+            Route::delete('/{doctor}', [AdminDoctorController::class, 'destroy'])->name('destroy');
         });
 
         // Medicine Management
