@@ -72,7 +72,7 @@
                             {{-- Full Name --}}
                             <div>
                                 <label class="form-label" for="full_name">Nama Lengkap <span class="text-rose-500">*</span></label>
-                                <input type="text" id="full_name" name="full_name"
+                                <input type="text" id="full_name" name="full_name" maxlength="150"
                                        class="form-input @error('full_name') border-rose-400 @enderror"
                                        placeholder="Nama sesuai KTP"
                                        value="{{ old('full_name') }}"
@@ -86,7 +86,7 @@
                                     <label class="form-label" for="whatsapp_number">Nomor WhatsApp <span class="text-rose-500">*</span></label>
                                     <div class="flex gap-2">
                                         <span class="flex items-center px-3 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-600 font-medium">+62</span>
-                                        <input type="tel" id="whatsapp_number" name="whatsapp_number"
+                                        <input type="tel" id="whatsapp_number" name="whatsapp_number" maxlength="20"
                                                class="form-input flex-1 @error('whatsapp_number') border-rose-400 @enderror"
                                                placeholder="81234567890"
                                                value="{{ old('whatsapp_number') }}"
@@ -96,7 +96,7 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="email">Alamat Email <span class="text-slate-400 font-normal text-xs ml-1">(Opsional)</span></label>
-                                    <input type="email" id="email" name="email"
+                                    <input type="email" id="email" name="email" maxlength="255"
                                            class="form-input @error('email') border-rose-400 @enderror"
                                            placeholder="nama@email.com"
                                            value="{{ old('email') }}"
@@ -131,7 +131,7 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="occupation">Pekerjaan <span class="text-rose-500" x-show="!form.no_occupation">*</span></label>
-                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta"
+                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta" maxlength="100"
                                            class="form-input" x-model="form.occupation" x-bind:readonly="form.no_occupation" :required="!form.no_occupation"
                                            :class="form.no_occupation ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : ''">
                                     <div class="mt-2 flex items-center gap-2">
@@ -195,7 +195,7 @@
                             {{-- Address --}}
                             <div>
                                 <label class="form-label" for="address">Alamat Lengkap <span class="text-rose-500">*</span></label>
-                                <textarea id="address" name="address" rows="3" class="form-textarea" placeholder="Alamat detail untuk kunjungan medis..." x-model="form.address" required></textarea>
+                                <textarea id="address" name="address" rows="3" maxlength="500" class="form-textarea" placeholder="Alamat detail untuk kunjungan medis..." x-model="form.address" required></textarea>
                                 @error('address') <p class="form-error">{{ $message }}</p> @enderror
                             </div>
                         </div>
@@ -234,13 +234,13 @@
                             <div>
                                 <label class="form-label" for="drug_allergies">Apakah ada alergi obat? <span class="text-rose-500">*</span></label>
                                 <textarea id="drug_allergies" name="drug_allergies"
-                                          rows="2"
+                                          rows="2" maxlength="255"
                                           class="form-textarea @error('drug_allergies') border-rose-400 @enderror"
                                           placeholder="Sebutkan obat yang menyebabkan alergi jika ada..."
                                           x-model="form.drug_allergies"
                                           x-bind:readonly="form.no_allergies"
-                                          :class="form.no_allergies ? 'bg-slate-100 text-slate-400 cursor-not-allowed focus:ring-0 focus:border-slate-300' : ''" required></textarea>
-                                <div class="mt-2 flex items-center">
+                                          :class="form.no_allergies ? 'bg-slate-100 text-slate-400 cursor-not-allowed focus:ring-0 focus:border-slate-300' : ''" :required="!form.no_allergies"></textarea>
+                                <div class="mt-2 flex items-center gap-2">
                                     <input type="checkbox" id="no_allergies" class="form-checkbox h-4 w-4 text-brand-600 border-slate-300 rounded focus:ring-brand-500" 
                                            x-model="form.no_allergies" 
                                            @change="if(form.no_allergies) form.drug_allergies = 'Tidak ada alergi obat'; else form.drug_allergies = '';">

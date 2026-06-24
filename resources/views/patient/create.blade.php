@@ -73,7 +73,7 @@
                             {{-- Full Name --}}
                             <div>
                                 <label class="form-label" for="full_name">Nama Lengkap <span class="text-rose-500">*</span></label>
-                                <input type="text" id="full_name" name="full_name"
+                                <input type="text" id="full_name" name="full_name" maxlength="150"
                                        class="form-input @error('full_name') border-rose-400 @enderror"
                                        placeholder="Nama sesuai KTP"
                                        value="{{ old('full_name') }}"
@@ -87,7 +87,7 @@
                                     <label class="form-label" for="whatsapp_number">Nomor WhatsApp <span class="text-rose-500">*</span></label>
                                     <div class="flex gap-2">
                                         <span class="flex items-center px-3 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-600 font-medium">+62</span>
-                                        <input type="tel" id="whatsapp_number" name="whatsapp_number"
+                                        <input type="tel" id="whatsapp_number" name="whatsapp_number" maxlength="20"
                                                class="form-input flex-1 @error('whatsapp_number') border-rose-400 @enderror"
                                                placeholder="81234567890"
                                                value="{{ old('whatsapp_number') }}"
@@ -97,7 +97,7 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="email">Alamat Email <span class="text-slate-400 font-normal text-xs ml-1">(Opsional)</span></label>
-                                    <input type="email" id="email" name="email"
+                                    <input type="email" id="email" name="email" maxlength="255"
                                            class="form-input @error('email') border-rose-400 @enderror"
                                            placeholder="nama@email.com"
                                            value="{{ old('email') }}"
@@ -131,7 +131,7 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="occupation">Pekerjaan <span class="text-rose-500" x-show="!form.no_occupation">*</span></label>
-                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta"
+                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta" maxlength="100"
                                            class="form-input" x-model="form.occupation" :disabled="form.no_occupation" :required="!form.no_occupation"
                                            :class="form.no_occupation ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : ''">
                                     <div class="mt-2 flex items-center gap-2">
@@ -200,7 +200,7 @@
                                 {{-- Alamat Lengkap --}}
                                 <div>
                                     <label class="form-label" for="rt_rw">Alamat Lengkap <span class="text-rose-500">*</span></label>
-                                    <input type="text" id="rt_rw" name="rt_rw" class="form-input" placeholder="Contoh: Jl. Merdeka No. 10, RT 01/RW 02" x-model="form.rt_rw" required>
+                                    <input type="text" id="rt_rw" name="rt_rw" maxlength="500" class="form-input" placeholder="Contoh: Jl. Merdeka No. 10, RT 01/RW 02" x-model="form.rt_rw" required>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                             <div>
                                 <label class="form-label" for="drug_allergies">Apakah ada alergi obat? <span class="text-rose-500">*</span></label>
                                 <textarea id="drug_allergies" name="drug_allergies"
-                                          rows="2"
+                                          rows="2" maxlength="255"
                                           class="form-textarea @error('drug_allergies') border-rose-400 @enderror"
                                           placeholder="Sebutkan obat yang menyebabkan alergi jika ada..."
                                           x-model="form.drug_allergies"
