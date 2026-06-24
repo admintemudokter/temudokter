@@ -18,6 +18,7 @@ window.postJson = async function (url, data = {}) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? '',
             'Accept': 'application/json',
+            'X-Socket-ID': window.Echo ? window.Echo.socketId() : '',
         },
         body: JSON.stringify(data),
     });
@@ -47,6 +48,7 @@ window.postForm = async function (url, formData) {
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ?? '',
             'Accept': 'application/json',
+            'X-Socket-ID': window.Echo ? window.Echo.socketId() : '',
         },
         body: formData,
     });

@@ -26,7 +26,7 @@ class Message extends Model
     protected static function booted()
     {
         static::created(function ($message) {
-            broadcast(new \App\Events\MessageSent($message));
+            broadcast(new \App\Events\MessageSent($message))->toOthers();
         });
     }
 
