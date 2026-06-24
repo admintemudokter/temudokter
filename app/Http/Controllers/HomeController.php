@@ -26,14 +26,16 @@ class HomeController extends Controller
 
         $consultation = Consultation::with(['patient', 'doctor', 'transaction'])
             ->whereHas('patient', function ($q) use ($request) {
-                $q->where('whatsapp_number', $request->whatsapp_number);
+                // Ltrim removes leading '0', '+', '6', '2' to get the core number e.g. "812..."
+                $normalizedInput = ltrim($request->whatsapp_number, '0+62');
+                $q->where('whatsapp_number', 'LIKE', '%' . $normalizedInput);
             })
             ->where('history_code', $request->history_code)
             ->where('consultation_status', 'completed')
             ->first();
 
         if (!$consultation) {
-            return back()->withErrors(['history_code' => 'No. WhatsApp atau Kode Riwayat tidak valid, atau konsultasi belum selesai.'])->withInput();
+            return back()->withErrors(['history_code' => 'Riwayat tidak ditemukan. Pastikan No. WhatsApp dan Kode Riwayat yang Anda masukkan sudah benar.'])->withInput();
         }
 
         // Redirect directly to the consultation view, no list needed since code is unique per consultation

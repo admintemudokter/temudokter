@@ -35,10 +35,11 @@
                 
                 <div>
                     <label for="whatsapp_number" class="block text-sm font-medium text-slate-700">No. WhatsApp <span class="text-rose-500">*</span></label>
-                    <div class="mt-1">
+                    <div class="mt-1 flex gap-2">
+                        <span class="flex items-center px-3 bg-slate-100 border border-slate-300 rounded-md text-sm text-slate-600 font-medium">+62</span>
                         <input id="whatsapp_number" name="whatsapp_number" type="tel" required value="{{ old('whatsapp_number') }}"
                             class="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-brand-500 focus:border-brand-500 sm:text-sm"
-                            placeholder="Contoh: 08123456789">
+                            placeholder="81234567890">
                     </div>
                 </div>
 
