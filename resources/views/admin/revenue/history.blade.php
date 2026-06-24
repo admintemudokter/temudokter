@@ -63,9 +63,16 @@
                         <div class="text-sm text-slate-700">{{ $t->consultation->patient->name ?? '-' }}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium border border-slate-200">
-                            {{ strtoupper($t->payment_provider) }}
-                        </span>
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium border border-slate-200">
+                                {{ $t->method_label }}
+                            </span>
+                            @if($t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank']))
+                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-medium border border-emerald-100">
+                                {{ strtoupper($t->payment_provider) }}
+                            </span>
+                            @endif
+                        </div>
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="text-sm font-bold text-emerald-600">Rp {{ number_format($t->amount, 0, ',', '.') }}</div>

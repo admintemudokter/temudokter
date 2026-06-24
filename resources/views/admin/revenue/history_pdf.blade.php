@@ -44,7 +44,7 @@
                     <td>{{ $t->created_at->format('d/m/Y H:i') }}</td>
                     <td>{{ $t->invoice_number }}</td>
                     <td>{{ $t->consultation->patient->name ?? '-' }}</td>
-                    <td>{{ strtoupper($t->payment_provider) }}</td>
+                    <td>{{ $t->method_label }} {{ $t->payment_provider && !in_array(strtolower($t->payment_provider), ['qris', 'transfer bank', 'manual transfer bank']) ? ' - ' . strtoupper($t->payment_provider) : '' }}</td>
                     <td class="text-right">Rp {{ number_format($t->amount, 0, ',', '.') }}</td>
                 </tr>
             @empty

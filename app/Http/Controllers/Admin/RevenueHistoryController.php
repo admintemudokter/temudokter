@@ -107,11 +107,10 @@ class RevenueHistoryController extends Controller
 
         $callback = function() use ($transactions) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['Tanggal Hapus', 'Invoice', 'Tanggal Transaksi', 'Pasien', 'Metode Bayar', 'Provider', 'Nominal']);
+            fputcsv($file, ['Invoice', 'Tanggal Transaksi', 'Pasien', 'Metode Bayar', 'Provider', 'Nominal']);
 
             foreach ($transactions as $t) {
                 fputcsv($file, [
-                    $t->created_at->format('d/m/Y H:i'),
                     $t->invoice_number,
                     $t->created_at->format('d/m/Y H:i'),
                     $t->consultation->patient->name ?? '-',
