@@ -164,7 +164,7 @@ class ConsultationController extends Controller
             'city'                 => 'required|string|max:100',
             'district'             => 'required|in:Bekasi Barat,Bekasi Timur,Bekasi Selatan',
             'village'              => 'required|string|max:100',
-            'address'              => 'required|string|max:500',
+            'address'              => 'required|string',
             'complaint_description'=> 'required|string|min:20',
             'drug_allergies'       => 'required|string|max:255',
             'medical_image'        => 'nullable|file|mimes:jpg,jpeg,png|max:2048',

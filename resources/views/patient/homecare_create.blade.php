@@ -195,7 +195,7 @@
                             {{-- Address --}}
                             <div>
                                 <label class="form-label" for="address">Alamat Lengkap <span class="text-rose-500">*</span></label>
-                                <textarea id="address" name="address" rows="3" maxlength="500" class="form-textarea" placeholder="Alamat detail untuk kunjungan medis..." x-model="form.address" required></textarea>
+                                <textarea id="address" name="address" rows="3" class="form-textarea" placeholder="Alamat detail untuk kunjungan medis..." x-model="form.address" required></textarea>
                                 @error('address') <p class="form-error">{{ $message }}</p> @enderror
                             </div>
                         </div>
