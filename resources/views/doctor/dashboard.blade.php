@@ -17,7 +17,7 @@
 </div>
 
 {{-- Stats --}}
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
     <div class="card card-body text-center">
         <div class="stat-icon bg-emerald-100 mx-auto mb-3">
             <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,15 +26,6 @@
         </div>
         <div class="stat-value text-emerald-600">{{ $stats['active'] }}</div>
         <div class="stat-label">Konsultasi Aktif</div>
-    </div>
-    <div class="card card-body text-center">
-        <div class="stat-icon bg-amber-100 mx-auto mb-3">
-            <svg class="w-6 h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-        </div>
-        <div class="stat-value text-amber-600">{{ $stats['waiting'] }}</div>
-        <div class="stat-label">Menunggu Dokter</div>
     </div>
     <div class="card card-body text-center">
         <div class="stat-icon bg-teal-100 mx-auto mb-3">
