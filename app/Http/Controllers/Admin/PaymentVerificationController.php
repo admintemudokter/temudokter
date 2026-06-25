@@ -96,16 +96,61 @@ class PaymentVerificationController extends Controller
 
     public function destroyConsultation(Consultation $consultation)
     {
+        $disk = \Illuminate\Support\Facades\Storage::disk(config('filesystems.private_disk', 'private'));
+        
         if ($consultation->transaction) {
+            foreach ($consultation->transaction->paymentProofs as $proof) {
+                if ($proof->file_path) {
+                    $disk->delete($proof->file_path);
+                }
+            }
             $consultation->transaction->paymentProofs()->delete();
             $consultation->transaction->paymentSessions()->delete();
             $consultation->transaction->delete();
         }
-        // Delete messages if any
+
+        // Delete messages and their physical attachments
+        foreach ($consultation->messages as $msg) {
+            if ($msg->attachment) {
+                $disk->delete($msg->attachment);
+            }
+        }
         $consultation->messages()->delete();
+
+        // Delete prescription file if exists
+        if ($consultation->prescription && $consultation->prescription->file_path) {
+            $disk->delete($consultation->prescription->file_path);
+            $consultation->prescription->items()->delete();
+            $consultation->prescription()->delete();
+        }
+
+        // Delete sick leave file if exists
+        if ($consultation->sickLeave && $consultation->sickLeave->file_path) {
+            $disk->delete($consultation->sickLeave->file_path);
+            $consultation->sickLeave()->delete();
+        }
+        
+        $patient = $consultation->patient;
+        $isLastConsultation = $patient && $patient->consultations()->count() <= 1;
+
+        // Delete medical documents if this is the only consultation for the patient
+        if ($isLastConsultation) {
+            if ($patient->medical_image) {
+                $disk->delete($patient->medical_image);
+            }
+            if ($patient->medical_document) {
+                $disk->delete($patient->medical_document);
+            }
+        }
+
         $consultation->delete();
         
+        // Cleanup orphaned patient
+        if ($isLastConsultation) {
+            $patient->delete();
+        }
+        
         return redirect()->route('admin.payment.index')
-            ->with('success', 'Konsultasi berhasil dihapus.');
+            ->with('success', 'Konsultasi beserta seluruh berkas fisiknya berhasil dihapus dari sistem.');
     }
 }
