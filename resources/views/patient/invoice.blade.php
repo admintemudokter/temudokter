@@ -194,8 +194,8 @@
                             <template x-if="method === 'qris'">
                                 <div>
                                     <p class="text-xs text-slate-500 mb-2">Scan QR Code di bawah ini</p>
-                                    <img src="{{ asset('images/qris-merchant.png') }}" alt="QRIS" class="mx-auto max-w-[250px] border border-slate-200 rounded-xl mb-3 shadow-sm">
-                                    <a href="{{ asset('images/qris-merchant.png') }}" download="QRIS_Temu_Dokter.png" class="inline-flex items-center gap-2 text-xs px-4 py-2 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold mb-4 shadow-sm transition-colors cursor-pointer">
+                                    <img src="{{ asset('images/qris-merchant.png') }}?v={{ filemtime(public_path('images/qris-merchant.png')) }}" alt="QRIS" class="mx-auto max-w-[250px] border border-slate-200 rounded-xl mb-3 shadow-sm">
+                                    <a href="{{ asset('images/qris-merchant.png') }}?v={{ filemtime(public_path('images/qris-merchant.png')) }}" download="QRIS_Temu_Dokter.png" class="inline-flex items-center gap-2 text-xs px-4 py-2 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold mb-4 shadow-sm transition-colors cursor-pointer">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>
