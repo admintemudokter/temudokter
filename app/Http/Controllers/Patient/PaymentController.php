@@ -118,11 +118,11 @@ class PaymentController extends Controller
             }
 
             // Validasi Blokir Admin
-            $fullDayBlock = \App\Models\HomecareBlock::where('date', $data['homecare_date'])->whereNull('time')->exists();
+            $fullDayBlock = \App\Models\HomecareBlock::where('type', 'block')->where('date', $data['homecare_date'])->whereNull('time')->exists();
             if ($fullDayBlock) {
                 return response()->json(['error' => 'Maaf, seluruh jadwal di tanggal tersebut telah ditutup.'], 422);
             }
-            $timeBlock = \App\Models\HomecareBlock::where('date', $data['homecare_date'])->where('time', 'like', substr($data['homecare_time'], 0, 5) . '%')->exists();
+            $timeBlock = \App\Models\HomecareBlock::where('type', 'block')->where('date', $data['homecare_date'])->where('time', 'like', substr($data['homecare_time'], 0, 5) . '%')->exists();
             if ($timeBlock) {
                 return response()->json(['error' => 'Maaf, jadwal di jam tersebut telah ditutup oleh Admin.'], 422);
             }
