@@ -158,6 +158,12 @@ class PaymentController extends Controller
             $consultation->refresh();
         }
 
+        // Hapus file lama jika ada (mencegah penumpukan file/storage leak)
+        $existingProof = PaymentProof::where('transaction_id', $consultation->transaction->id)->first();
+        if ($existingProof && $existingProof->file_path) {
+            $this->fileStorage->delete($existingProof->file_path);
+        }
+
         // Update existing proof or create new one
         PaymentProof::updateOrCreate(
             ['transaction_id' => $consultation->transaction->id],
