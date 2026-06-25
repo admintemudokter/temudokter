@@ -42,6 +42,10 @@ class ConsultationController extends Controller
 
     public function assign(Request $request, Consultation $consultation)
     {
+        if ($consultation->consultation_status !== 'waiting_assignment') {
+            return redirect()->back()->with('error', 'Konsultasi ini sudah ditugaskan atau statusnya tidak valid.');
+        }
+
         $request->validate(['doctor_id' => 'required|exists:doctors,id']);
 
         $doctor = Doctor::findOrFail($request->doctor_id);
