@@ -408,7 +408,7 @@ class ConsultationController extends Controller
 
         // Send email notification after survey is completed
         if ($patient->email) {
-            Mail::to($patient->email)->queue(new ConsultationSummaryMail($consultation));
+            Mail::to($patient->email)->send(new ConsultationSummaryMail($consultation));
         }
 
         return redirect()->route('patient.summary', $token)
