@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\ConsultationController as AdminConsultationContro
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\AuthController as DoctorAuthController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
-use App\Http\Controllers\Doctor\ConsultationController as DoctorConsultationController;
+use App\Http\Controllers\Admin\ConsultationHistoryController;
 use App\Http\Controllers\Patient\ConsultationController as PatientConsultationController;
 use App\Http\Controllers\Patient\PaymentController;
 use App\Http\Controllers\FileController;
@@ -122,8 +122,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Consultation Management
         Route::prefix('konsultasi')->name('consultation.')->group(function () {
+            Route::get('/riwayat', [ConsultationHistoryController::class, 'index'])->name('history');
+            Route::post('/archive-all', [AdminConsultationController::class, 'archiveAll'])->name('archiveAll');
             Route::get('/', [AdminConsultationController::class, 'index'])->name('index');
             Route::get('/{consultation}', [AdminConsultationController::class, 'show'])->name('show');
+            Route::post('/{consultation}/archive', [AdminConsultationController::class, 'archive'])->name('archive');
             Route::post('/{consultation}/assign', [AdminConsultationController::class, 'assign'])->name('assign');
             Route::post('/{consultation}/close', [AdminConsultationController::class, 'forceClose'])->name('close');
         });

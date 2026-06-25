@@ -23,7 +23,7 @@
         ['key'=>'waiting_admin_confirmation', 'label'=>'Menunggu Verifikasi', 'color'=>'blue', 'emoji'=>'🔍'],
         ['key'=>'waiting_assignment', 'label'=>'Menunggu Dokter', 'color'=>'purple', 'emoji'=>'👨‍⚕️'],
         ['key'=>'active', 'label'=>'Sedang Aktif', 'color'=>'emerald', 'emoji'=>'💬'],
-        ['key'=>'completed', 'label'=>'Selesai Hari Ini', 'color'=>'teal', 'emoji'=>'✅'],
+        ['key'=>'completed', 'label'=>'Selesai (Menunggu Diarsipkan)', 'color'=>'teal', 'emoji'=>'✅'],
     ];
     @endphp
 
@@ -44,12 +44,22 @@
                 {{ $columns[$col['key']]->count() }}
             </span>
         </div>
+        
+        @if($col['key'] === 'completed' && $columns['completed']->count() > 0)
+        <form action="{{ route('admin.consultation.archiveAll') }}" method="POST" class="mb-3" onsubmit="return confirm('Anda yakin ingin memindahkan semua data Selesai ke Riwayat Telekonsultasi?');">
+            @csrf
+            <button type="submit" class="w-full btn py-2 text-xs bg-amber-100 text-amber-800 hover:bg-amber-200 border-none flex justify-center items-center gap-1 font-semibold rounded-xl">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                Arsipkan Semua
+            </button>
+        </form>
+        @endif
 
         {{-- Cards --}}
         <div class="space-y-2 flex-1">
             @forelse($columns[$col['key']] as $c)
-            <a href="{{ route('admin.consultation.show', $c->id) }}"
-               class="block card card-body !p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
+            <div class="relative flex flex-col card card-body !p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden group">
+                <a href="{{ route('admin.consultation.show', $c->id) }}" class="absolute inset-0 z-10"></a>
                 <div class="flex items-start justify-between gap-2 mb-2">
                     <p class="font-semibold text-slate-800 text-sm truncate">{{ $c->patient->full_name }}</p>
                 </div>
@@ -70,8 +80,19 @@
                     ⏱ {{ gmdate('i:s', $c->remaining_seconds) }}
                 </div>
                 @endif
-                <p class="text-xs text-slate-400 mt-1">{{ $c->created_at->format('H:i') }}</p>
-            </a>
+                <p class="text-xs text-slate-400 mt-1">{{ $c->created_at->format('d/m/Y H:i') }}</p>
+                
+                @if($col['key'] === 'completed')
+                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end relative z-20">
+                    <form action="{{ route('admin.consultation.archive', $c->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-[11px] font-medium px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors border border-amber-200">
+                            Pindah ke Riwayat
+                        </button>
+                    </form>
+                </div>
+                @endif
+            </div>
             @empty
             <div class="text-center py-6 text-slate-400 text-xs">Kosong</div>
             @endforelse

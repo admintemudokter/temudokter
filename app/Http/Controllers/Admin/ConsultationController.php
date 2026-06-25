@@ -27,7 +27,7 @@ class ConsultationController extends Controller
             'waiting_admin_confirmation' => $query()->where('consultation_status', 'waiting_admin_confirmation')->with('patient')->latest()->get(),
             'waiting_assignment'         => $query()->waitingAssignment()->with('patient')->latest()->get(),
             'active'                     => $query()->active()->with(['patient', 'doctor'])->latest()->get(),
-            'completed'                  => $query()->completed()->with(['patient', 'doctor'])->today()->latest()->get(),
+            'completed'                  => $query()->completed()->unarchived()->with(['patient', 'doctor'])->latest()->get(),
         ];
 
         return view('admin.consultation.index', compact('columns', 'type'));
@@ -58,4 +58,17 @@ class ConsultationController extends Controller
             ->with('success', 'Konsultasi telah diakhiri oleh admin.');
     }
 
+    public function archive(Consultation $consultation)
+    {
+        $consultation->update(['is_archived' => true]);
+        return redirect()->route('admin.consultation.index')
+            ->with('success', 'Data konsultasi berhasil dipindahkan ke Riwayat Telekonsultasi.');
+    }
+
+    public function archiveAll()
+    {
+        Consultation::completed()->unarchived()->update(['is_archived' => true]);
+        return redirect()->route('admin.consultation.index')
+            ->with('success', 'Semua data yang selesai berhasil dipindahkan ke Riwayat Telekonsultasi.');
+    }
 }

@@ -72,9 +72,14 @@
                     Jadwal Homecare
                 </a>
                 <a href="{{ route('admin.consultation.index') }}"
-                   class="{{ request()->routeIs('admin.consultation.*') ? 'bg-brand-600 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
+                   class="{{ request()->routeIs('admin.consultation.index', 'admin.consultation.show') ? 'bg-brand-600 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                     Telekonsultasi
+                </a>
+                <a href="{{ route('admin.consultation.history') }}"
+                   class="{{ request()->routeIs('admin.consultation.history') ? 'bg-brand-600 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Riwayat Telekonsultasi
                 </a>
                 <a href="{{ route('admin.doctor.index') }}"
                    class="{{ request()->routeIs('admin.doctor.*') ? 'bg-brand-600 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all">

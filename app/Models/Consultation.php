@@ -106,6 +106,16 @@ class Consultation extends Model
         return $query->whereDate('created_at', today());
     }
 
+    public function scopeArchived($query)
+    {
+        return $query->where('is_archived', true);
+    }
+
+    public function scopeUnarchived($query)
+    {
+        return $query->where('is_archived', false);
+    }
+
     // Helpers
     public function isActive(): bool
     {
