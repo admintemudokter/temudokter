@@ -41,7 +41,7 @@
 
         <div class="w-full lg:w-auto flex gap-2">
             <button type="submit" class="btn btn-primary px-6 h-[42px] whitespace-nowrap">Filter</button>
-            <a href="{{ route('admin.consultation.history') }}" class="btn btn-outline border-slate-300 text-slate-600 h-[42px] px-4 whitespace-nowrap bg-white hover:bg-slate-50">Reset</a>
+            <a href="{{ route('admin.consultation.history') }}" class="btn btn-outline border-slate-300 text-slate-600 h-[42px] px-4 whitespace-nowrap bg-white hover:bg-slate-50" title="Bersihkan kolom filter pencarian">Reset Filter</a>
         </div>
     </form>
 
