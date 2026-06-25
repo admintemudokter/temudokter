@@ -50,17 +50,6 @@
                 <form action="{{ route('patient.homecare.store') }}" method="POST" enctype="multipart/form-data" id="homecare-form">
                     @csrf
 
-                    @if($errors->any())
-                        <div class="m-8 p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-600">
-                            <p class="font-bold mb-2">Terdapat kesalahan pada pengisian form:</p>
-                            <ul class="list-disc pl-5 text-sm space-y-1">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     {{-- ===== STEP 1: Personal Info ===== --}}
                     <div x-show="step === 1" x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
@@ -72,7 +61,7 @@
                             {{-- Full Name --}}
                             <div>
                                 <label class="form-label" for="full_name">Nama Lengkap <span class="text-rose-500">*</span></label>
-                                <input type="text" id="full_name" name="full_name" maxlength="150"
+                                <input type="text" id="full_name" name="full_name"
                                        class="form-input @error('full_name') border-rose-400 @enderror"
                                        placeholder="Nama sesuai KTP"
                                        value="{{ old('full_name') }}"
@@ -86,7 +75,7 @@
                                     <label class="form-label" for="whatsapp_number">Nomor WhatsApp <span class="text-rose-500">*</span></label>
                                     <div class="flex gap-2">
                                         <span class="flex items-center px-3 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-600 font-medium">+62</span>
-                                        <input type="tel" id="whatsapp_number" name="whatsapp_number" maxlength="20"
+                                        <input type="tel" id="whatsapp_number" name="whatsapp_number"
                                                class="form-input flex-1 @error('whatsapp_number') border-rose-400 @enderror"
                                                placeholder="81234567890"
                                                value="{{ old('whatsapp_number') }}"
@@ -96,7 +85,7 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="email">Alamat Email <span class="text-slate-400 font-normal text-xs ml-1">(Opsional)</span></label>
-                                    <input type="email" id="email" name="email" maxlength="255"
+                                    <input type="email" id="email" name="email"
                                            class="form-input @error('email') border-rose-400 @enderror"
                                            placeholder="nama@email.com"
                                            value="{{ old('email') }}"
@@ -131,8 +120,8 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="occupation">Pekerjaan <span class="text-rose-500" x-show="!form.no_occupation">*</span></label>
-                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta" maxlength="100"
-                                           class="form-input" x-model="form.occupation" x-bind:readonly="form.no_occupation" :required="!form.no_occupation"
+                                    <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" placeholder="Contoh: Pegawai Swasta"
+                                           class="form-input" x-model="form.occupation" :disabled="form.no_occupation" :required="!form.no_occupation"
                                            :class="form.no_occupation ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : ''">
                                     <div class="mt-2 flex items-center gap-2">
                                         <input type="checkbox" id="no_occupation" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" 
@@ -151,18 +140,16 @@
                                     {{-- Province --}}
                                     <div>
                                         <label class="form-label" for="province">Provinsi <span class="text-rose-500">*</span></label>
-                                        <select id="province" class="form-select bg-slate-50 cursor-not-allowed" disabled required>
+                                        <select id="province" name="province" class="form-select bg-slate-50 cursor-not-allowed" readonly required>
                                             <option value="Jawa Barat" selected>Jawa Barat</option>
                                         </select>
-                                        <input type="hidden" name="province" value="Jawa Barat">
                                     </div>
                                     {{-- City --}}
                                     <div>
                                         <label class="form-label" for="city">Kabupaten/Kota <span class="text-rose-500">*</span></label>
-                                        <select id="city" class="form-select bg-slate-50 cursor-not-allowed" disabled required>
+                                        <select id="city" name="city" class="form-select bg-slate-50 cursor-not-allowed" readonly required>
                                             <option value="Kota Bekasi" selected>Kota Bekasi</option>
                                         </select>
-                                        <input type="hidden" name="city" value="Kota Bekasi">
                                     </div>
                                 </div>
 
@@ -234,13 +221,13 @@
                             <div>
                                 <label class="form-label" for="drug_allergies">Apakah ada alergi obat? <span class="text-rose-500">*</span></label>
                                 <textarea id="drug_allergies" name="drug_allergies"
-                                          rows="2" maxlength="255"
+                                          rows="2"
                                           class="form-textarea @error('drug_allergies') border-rose-400 @enderror"
                                           placeholder="Sebutkan obat yang menyebabkan alergi jika ada..."
                                           x-model="form.drug_allergies"
                                           x-bind:readonly="form.no_allergies"
-                                          :class="form.no_allergies ? 'bg-slate-100 text-slate-400 cursor-not-allowed focus:ring-0 focus:border-slate-300' : ''" :required="!form.no_allergies"></textarea>
-                                <div class="mt-2 flex items-center gap-2">
+                                          :class="form.no_allergies ? 'bg-slate-100 text-slate-400 cursor-not-allowed focus:ring-0 focus:border-slate-300' : ''" required></textarea>
+                                <div class="mt-2 flex items-center">
                                     <input type="checkbox" id="no_allergies" class="form-checkbox h-4 w-4 text-brand-600 border-slate-300 rounded focus:ring-brand-500" 
                                            x-model="form.no_allergies" 
                                            @change="if(form.no_allergies) form.drug_allergies = 'Tidak ada alergi obat'; else form.drug_allergies = '';">
@@ -536,12 +523,12 @@ function homecareForm() {
             full_name: @js(old('full_name', '')),
             whatsapp_number: @js(old('whatsapp_number', '')),
             age: @js(old('age', '')),
-            gender: '{{ old('gender') }}',
+            gender: @js(old('gender', '')),
             occupation: @js(old('occupation', '')),
             no_occupation: @js(old('occupation') === '-'),
-            district: '{{ old('district') }}',
-            village: '{{ old('village') }}',
-            address: '{{ old('address') }}',
+            district: @js(old('district', '')),
+            village: @js(old('village', '')),
+            address: @js(old('address', '')),
             complaint_description: @js(old('complaint_description', '')),
             drug_allergies: @js(old('drug_allergies', '')),
             no_allergies: @js(old('drug_allergies') === 'Tidak ada alergi obat'),
@@ -551,8 +538,8 @@ function homecareForm() {
             { name: 'Bekasi Selatan', villages: ['Jakamulya', 'Jakasetia', 'Kayuringin Jaya', 'Marga Jaya', 'Pekayon Jaya'] },
             { name: 'Bekasi Timur', villages: ['Aren Jaya', 'Bekasi Jaya', 'Duren Jaya', 'Margahayu'] },
         ],
-        selectedDistrict: '{{ old('district') }}',
-        selectedVillage: '{{ old('village') }}',
+        selectedDistrict: @js(old('district', '')),
+        selectedVillage: @js(old('village', '')),
         get availableVillages() {
             if (!this.selectedDistrict) return [];
             let d = this.districts.find(x => x.name === this.selectedDistrict);
