@@ -529,8 +529,26 @@ function doctorRoom(id, initialStatus, initialRemaining) {
             this.newMessage = '';
             this.pendingAttachment = null;
             this.scrollToBottom();
-            try { await postForm(`/doctor/api/pesan/${id}`, fd); } catch(e) {}
+            try { await postForm(`/doctor/api/pesan/${id}`, fd); this.fetchMessages(); } catch(e) {}
             this.sending = false;
+        },
+
+        async fetchMessages() {
+            try {
+                const res = await fetch(`/doctor/api/pesan/${id}?after=${this.lastId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.messages && data.messages.length > 0) {
+                        data.messages.forEach(m => {
+                            if (!this.messages.find(x => x.id === m.id)) {
+                                this.messages.push(m);
+                            }
+                        });
+                        this.lastId = data.messages[data.messages.length - 1].id;
+                        this.scrollToBottom();
+                    }
+                }
+            } catch(e) {}
         },
 
         async sendQuickReply(text) {
@@ -559,6 +577,7 @@ function doctorRoom(id, initialStatus, initialRemaining) {
                 if (data.success) {
                     this.showPrescriptionModal = false;
                     this.prescriptionItems = [{ medicine_id: '', quantity: '', instructions: '', notes: '' }];
+                    this.fetchMessages();
                 } else {
                     alert(data.error || 'Gagal membuat resep');
                 }
@@ -580,6 +599,7 @@ function doctorRoom(id, initialStatus, initialRemaining) {
                 if (data.success) {
                     this.showSickLeaveModal = false;
                     this.sickLeave = { start_date: '', end_date: '', reason: '' };
+                    this.fetchMessages();
                 } else {
                     alert(data.error || 'Gagal membuat surat sakit');
                 }
