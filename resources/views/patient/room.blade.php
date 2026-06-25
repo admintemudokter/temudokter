@@ -549,23 +549,18 @@ function consultationRoom(id, initialStatus, initialRemaining) {
             if (this.newMessage.trim()) fd.append('message', this.newMessage);
             if (this.pendingAttachment) fd.append('attachment', this.pendingAttachment);
 
-            // Optimistic UI
-            const optimistic = {
-                id: Date.now(),
-                sender_type: 'patient',
-                message: this.newMessage,
-                attachment: null,
-                attachment_type: this.pendingAttachment ? 'image' : 'none',
-                is_read: false,
-                created_at: new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}),
-            };
-            this.messages.push(optimistic);
             this.newMessage = '';
             this.pendingAttachment = null;
-            this.scrollToBottom();
 
             try {
-                await postForm(`/api/pasien/pesan/${id}`, fd);
+                const res = await postForm(`/api/pasien/pesan/${id}`, fd);
+                const data = await res.json();
+                if (data.message) {
+                    if (!this.messages.find(m => m.id === data.message.id)) {
+                        this.messages.push(data.message);
+                        this.scrollToBottom();
+                    }
+                }
             } catch(e) {}
 
             this.sending = false;

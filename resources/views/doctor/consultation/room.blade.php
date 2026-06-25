@@ -524,11 +524,8 @@ function doctorRoom(id, initialStatus, initialRemaining) {
             const fd = new FormData();
             if (this.newMessage.trim()) fd.append('message', this.newMessage);
             if (this.pendingAttachment) fd.append('attachment', this.pendingAttachment);
-            const optimistic = { id: Date.now(), sender_type: 'doctor', message: this.newMessage, attachment: null, attachment_type: 'none', created_at: new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) };
-            this.messages.push(optimistic);
             this.newMessage = '';
             this.pendingAttachment = null;
-            this.scrollToBottom();
             try { await postForm(`/doctor/api/pesan/${id}`, fd); this.fetchMessages(); } catch(e) {}
             this.sending = false;
         },
