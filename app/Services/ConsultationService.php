@@ -95,15 +95,32 @@ class ConsultationService
      */
     public function expireOverdue(): int
     {
-        $overdue = Consultation::where('consultation_status', 'active')
+        $count = 0;
+
+        // 1. Expire active chat consultations
+        $overdueActive = Consultation::where('consultation_status', 'active')
             ->where('expires_at', '<=', now())
             ->get();
 
-        foreach ($overdue as $consultation) {
+        foreach ($overdueActive as $consultation) {
             $this->end($consultation, 'timer');
+            $count++;
         }
 
-        return $overdue->count();
+        // 2. Expire unpaid or unuploaded invoices (3 hours limit)
+        $overduePayments = Consultation::whereIn('consultation_status', ['waiting_payment', 'waiting_upload'])
+            ->where('created_at', '<=', now()->subHours(3))
+            ->get();
+
+        foreach ($overduePayments as $consultation) {
+            $consultation->update(['consultation_status' => 'rejected']);
+            if ($consultation->transaction) {
+                $consultation->transaction->update(['payment_status' => 'expired']);
+            }
+            $count++;
+        }
+
+        return $count;
     }
 
     private function addSystemMessage(Consultation $consultation, string $text): void
