@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\AuthController as DoctorAuthController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Admin\ConsultationHistoryController;
+use App\Http\Controllers\Doctor\ConsultationController as DoctorConsultationController;
 use App\Http\Controllers\Patient\ConsultationController as PatientConsultationController;
 use App\Http\Controllers\Patient\PaymentController;
 use App\Http\Controllers\FileController;
