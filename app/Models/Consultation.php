@@ -33,6 +33,7 @@ class Consultation extends Model
         'homecare_report',
         'rating',
         'review',
+        'is_archived',
     ];
 
     protected function casts(): array
@@ -42,6 +43,7 @@ class Consultation extends Model
             'expires_at' => 'datetime',
             'ended_at'   => 'datetime',
             'homecare_schedule_date' => 'date',
+            'is_archived' => 'boolean',
         ];
     }
 
