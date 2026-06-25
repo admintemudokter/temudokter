@@ -526,7 +526,14 @@ function doctorRoom(id, initialStatus, initialRemaining) {
             if (this.pendingAttachment) fd.append('attachment', this.pendingAttachment);
             this.newMessage = '';
             this.pendingAttachment = null;
-            try { await postForm(`/doctor/api/pesan/${id}`, fd); this.fetchMessages(); } catch(e) {}
+            try { 
+                const res = await postForm(`/doctor/api/pesan/${id}`, fd); 
+                const data = await res.json();
+                if (data.message && !this.messages.find(m => m.id === data.message.id)) {
+                    this.messages.push(data.message);
+                    this.scrollToBottom();
+                }
+            } catch(e) {}
             this.sending = false;
         },
 
