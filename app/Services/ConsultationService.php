@@ -54,7 +54,7 @@ class ConsultationService
                 'consultation_id' => $consultation->id,
                 'sender_type'     => 'doctor',
                 'sender_id'       => $doctor->id,
-                'message'         => "Halo, saya dr. {$doctor->name}. Terima kasih telah bergabung dalam konsultasi online ini. Silakan ceritakan keluhan atau pertanyaan yang ingin Anda konsultasikan hari ini. Saya siap membantu dan memberikan informasi medis sesuai dengan kondisi yang Anda sampaikan.",
+                'message'         => "Halo, saya {$doctor->name}. Terima kasih telah bergabung dalam konsultasi online ini. Silakan ceritakan keluhan atau pertanyaan yang ingin Anda konsultasikan hari ini. Saya siap membantu dan memberikan informasi medis sesuai dengan kondisi yang Anda sampaikan.",
                 'attachment_type' => 'none',
                 'is_read'         => false,
             ]);

@@ -79,7 +79,7 @@
             <div class="bg-white border-t p-4 flex-shrink-0">
                 @if($consultation->type === 'homecare')
                 <div x-show="status === 'active'" class="mb-2 flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-                    <button @click="sendQuickReply(`🚗 Halo, saya dr. {{ auth('doctor')->user()->name }} yang ditugaskan. Saya sedang bersiap menuju rumah Anda.`)" class="btn-ghost btn-sm whitespace-nowrap text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200">
+                    <button @click="sendQuickReply(`🚗 Halo, saya {{ auth('doctor')->user()->name }} yang ditugaskan. Saya sedang bersiap menuju rumah Anda.`)" class="btn-ghost btn-sm whitespace-nowrap text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200">
                         🚗 Menuju Rumah Anda
                     </button>
                     <button @click="sendQuickReply(`📍 Pasien sedang di tindak lanjuti oleh dokter.`)" class="btn-ghost btn-sm whitespace-nowrap text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200">
