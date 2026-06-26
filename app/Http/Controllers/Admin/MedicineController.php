@@ -18,6 +18,7 @@ class MedicineController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:medicines,name',
+            'bentuk_sediaan' => 'nullable|string|max:50',
             'description' => 'nullable|string',
         ]);
 
@@ -30,6 +31,7 @@ class MedicineController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:medicines,name,' . $medicine->id,
+            'bentuk_sediaan' => 'nullable|string|max:50',
             'description' => 'nullable|string',
         ]);
 

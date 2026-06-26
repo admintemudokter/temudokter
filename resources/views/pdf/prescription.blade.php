@@ -163,13 +163,11 @@
                 @endif
             </td>
             <td style="width: 70%; vertical-align: bottom; padding-bottom: 5px;">
-                <div style="text-align: right; color: #1a4a4d; font-weight: bold; font-size: 20px; margin-bottom: 15px;">Temu Dokter</div>
-                
                 <table style="width: 100%; font-size: 11px; color: #000; border-collapse: collapse;">
                     <tr>
                         <td style="width: 15%;"></td>
                         <td style="text-align: right; width: 40%; font-weight: bold; padding-bottom: 8px;">Nama Dokter :</td>
-                        <td style="text-align: left; width: 45%; padding-left: 10px; padding-bottom: 8px; white-space: nowrap;">Dr. {{ ltrim($doctor->name ?? '-', 'dr. ') }}</td>
+                        <td style="text-align: left; width: 45%; padding-left: 10px; padding-bottom: 8px; white-space: nowrap;">{{ $doctor->name ?? '-' }}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -208,8 +206,8 @@
                 </td>
                 <td style="width: 25%;">
                     <div class="lbl">Jenis Kelamin :</div>
-                    <div class="input-line val-text" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
-                        @if(strtolower($consultation->patient->gender) == 'laki-laki') L @else P @endif
+                    <div class="input-line val-text" style="text-align: center; font-weight: bold;">
+                        @if(strtolower($consultation->patient->gender) == 'laki-laki') Laki-Laki @else Perempuan @endif
                     </div>
                 </td>
             </tr>

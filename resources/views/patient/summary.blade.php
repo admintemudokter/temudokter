@@ -50,7 +50,7 @@
                     @if($consultation->started_at && $consultation->ended_at)
                     <div>
                         <p class="text-slate-500 text-xs mb-1">Durasi</p>
-                        <p class="font-semibold text-slate-800">{{ $consultation->started_at->diffInMinutes($consultation->ended_at) }} menit</p>
+                        <p class="font-semibold text-slate-800">{{ round($consultation->started_at->floatDiffInMinutes($consultation->ended_at), 2) }} menit</p>
                     </div>
                     @endif
                     <div>

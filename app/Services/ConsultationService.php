@@ -30,7 +30,7 @@ class ConsultationService
      */
     public function assignDoctor(Consultation $consultation, Doctor $doctor): void
     {
-        $duration = (int) env('CONSULTATION_DURATION_MINUTES', 15);
+        $duration = $consultation->type === 'homecare' ? 180 : (int) env('CONSULTATION_DURATION_MINUTES', 15);
         $startedAt = now();
 
         $consultation->update([
@@ -43,9 +43,10 @@ class ConsultationService
         // Set doctor status to busy
         $doctor->update(['status' => 'busy']);
 
+        $jenisLayanan = $consultation->type === 'homecare' ? 'kunjungan' : 'konsultasi';
         $this->addSystemMessage(
             $consultation,
-            "Dr. {$doctor->name} telah bergabung. Konsultasi dimulai. Waktu konsultasi {$duration} menit."
+            "Dr. {$doctor->name} telah bergabung. Konsultasi dimulai. Waktu {$jenisLayanan} {$duration} menit."
         );
 
         // Auto-Greeting by Doctor

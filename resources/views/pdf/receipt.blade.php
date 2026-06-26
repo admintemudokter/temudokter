@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Kwitansi - {{ $consultation->invoice_number }}</title>
+    <title>Kuitansi - {{ $consultation->invoice_number }}</title>
     <style>
         @page {
             size: A4 landscape;
@@ -55,7 +55,7 @@
         }
         .info-label { width: 80px; }
         .info-separator { width: 15px; text-align: center; }
-        .info-value { color: #559194; text-align: right; }
+        .info-value { color: #559194; text-align: left; padding-left: 5px; }
         
         .contact-info {
             font-size: 12px;
@@ -290,8 +290,8 @@
         <tbody>
             <tr>
                 <td>
-                    Chat Dokter Spesialis :<br>
-                    <span style="font-weight: normal; display: inline-block; margin-top: 5px;">dr. {{ $consultation->doctor->name }}</span>
+                    Layanan Konsultasi Dokter<br>
+                    <span style="font-weight: normal; display: inline-block; margin-top: 5px;">{{ $consultation->doctor->name }}</span>
                 </td>
                 <td style="text-align: center;">1</td>
                 <td style="text-align: right;">Rp {{ number_format($price, 0, ',', '.') }}.</td>

@@ -19,6 +19,7 @@
                 <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-semibold">
                     <th class="px-6 py-4">ID</th>
                     <th class="px-6 py-4">Nama Obat</th>
+                    <th class="px-6 py-4">Bentuk Sediaan</th>
                     <th class="px-6 py-4">Deskripsi/Keterangan</th>
                     <th class="px-6 py-4 text-right">Aksi</th>
                 </tr>
@@ -28,9 +29,10 @@
                 <tr class="hover:bg-slate-50 transition-colors">
                     <td class="px-6 py-4 text-slate-500">#{{ $med->id }}</td>
                     <td class="px-6 py-4 font-semibold text-slate-800">{{ $med->name }}</td>
+                    <td class="px-6 py-4 text-slate-600">{{ $med->bentuk_sediaan ?: '-' }}</td>
                     <td class="px-6 py-4 text-slate-500">{{ $med->description ?: '-' }}</td>
                     <td class="px-6 py-4 text-right space-x-2">
-                        <button onclick="editMed({{ $med->id }}, '{{ addslashes($med->name) }}', '{{ addslashes($med->description) }}')" class="text-brand-600 hover:text-brand-800 font-medium">Edit</button>
+                        <button onclick="editMed({{ $med->id }}, '{{ addslashes($med->name) }}', '{{ addslashes($med->bentuk_sediaan) }}', '{{ addslashes($med->description) }}')" class="text-brand-600 hover:text-brand-800 font-medium">Edit</button>
                         <form action="{{ route('admin.medicine.destroy', $med->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus obat ini?');">
                             @csrf
                             @method('DELETE')
@@ -40,7 +42,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="4" class="px-6 py-8 text-center text-slate-500">
+                    <td colspan="5" class="px-6 py-8 text-center text-slate-500">
                         Belum ada data obat.
                     </td>
                 </tr>
@@ -72,6 +74,20 @@
                 <div>
                     <label class="form-label">Nama Obat <span class="text-rose-500">*</span></label>
                     <input type="text" name="name" class="form-input" required placeholder="Contoh: Paracetamol 500mg">
+                </div>
+                <div>
+                    <label class="form-label">Bentuk Sediaan</label>
+                    <select name="bentuk_sediaan" class="form-select">
+                        <option value="">-- Pilih Bentuk Sediaan --</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Kapsul">Kapsul</option>
+                        <option value="Cair(sirup)">Cair(sirup)</option>
+                        <option value="Sirup(kering)">Sirup(kering)</option>
+                        <option value="Suspensi">Suspensi</option>
+                        <option value="Tetes">Tetes</option>
+                        <option value="Krim">Krim</option>
+                        <option value="Salep">Salep</option>
+                    </select>
                 </div>
                 <div>
                     <label class="form-label">Deskripsi / Keterangan</label>
@@ -108,6 +124,20 @@
                     <input type="text" name="name" id="edit-name" class="form-input" required>
                 </div>
                 <div>
+                    <label class="form-label">Bentuk Sediaan</label>
+                    <select name="bentuk_sediaan" id="edit-bentuk" class="form-select">
+                        <option value="">-- Pilih Bentuk Sediaan --</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Kapsul">Kapsul</option>
+                        <option value="Cair(sirup)">Cair(sirup)</option>
+                        <option value="Sirup(kering)">Sirup(kering)</option>
+                        <option value="Suspensi">Suspensi</option>
+                        <option value="Tetes">Tetes</option>
+                        <option value="Krim">Krim</option>
+                        <option value="Salep">Salep</option>
+                    </select>
+                </div>
+                <div>
                     <label class="form-label">Deskripsi / Keterangan</label>
                     <textarea name="description" id="edit-description" class="form-textarea" rows="3"></textarea>
                 </div>
@@ -123,8 +153,9 @@
 </dialog>
 
 <script>
-    function editMed(id, name, desc) {
+    function editMed(id, name, bentuk, desc) {
         document.getElementById('edit-name').value = name;
+        document.getElementById('edit-bentuk').value = bentuk;
         document.getElementById('edit-description').value = desc;
         document.getElementById('form-edit').action = '/admin/medicine/' + id;
         document.getElementById('modal-edit').showModal();

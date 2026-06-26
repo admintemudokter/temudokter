@@ -23,7 +23,7 @@
             $title = '';
             if ($type === 'sick-leave') $title = 'SURAT SAKIT';
             elseif ($type === 'prescription') $title = 'RESEP OBAT';
-            elseif ($type === 'receipt') $title = 'KWITANSI';
+            elseif ($type === 'receipt') $title = 'KUITANSI';
 
             // Mask name (e.g. Budi Santoso -> BU** *******)
             $nameParts = explode(' ', $consultation->patient->full_name);
@@ -69,7 +69,7 @@
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
                 <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Penanggung Jawab :</div>
-                <div class="text-white font-medium">dr. {{ $consultation->doctor->name }}</div>
+                <div class="text-white font-medium">{{ $consultation->doctor->name }}</div>
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
                 <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Status :</div>
@@ -108,7 +108,7 @@
                 </div>
             
             @elseif ($type === 'receipt')
-                <p class="mb-4">Dokumen ini merupakan <b class="text-white">Kwitansi/Bukti Pembayaran</b> yang sah.</p>
+                <p class="mb-4">Dokumen ini merupakan <b class="text-white">Kuitansi/Bukti Pembayaran</b> yang sah.</p>
                 <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 text-center">
                     <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Pembayaran</div>
                     <div class="text-xl font-bold text-emerald-400">Rp {{ number_format($consultation->price, 0, ',', '.') }}</div>

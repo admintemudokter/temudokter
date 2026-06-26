@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Medicine extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'bentuk_sediaan', 'description'];
 }
