@@ -92,15 +92,22 @@ class RevenueController extends Controller
         $month = $request->input('month', date('m'));
         $year = $request->input('year', date('Y'));
 
-        $data = Transaction::select(
+        $lastReset = \App\Models\Setting::getValue('last_revenue_reset_at');
+
+        $query = Transaction::select(
                 DB::raw('DATE(created_at) as date'),
                 DB::raw('COUNT(id) as total_transactions'),
                 DB::raw('SUM(amount) as total_revenue')
             )
             ->where('payment_status', 'approved')
             ->whereMonth('created_at', $month)
-            ->whereYear('created_at', $year)
-            ->groupBy('date')
+            ->whereYear('created_at', $year);
+
+        if ($lastReset) {
+            $query->where('created_at', '>', $lastReset);
+        }
+
+        $data = $query->groupBy('date')
             ->orderBy('date', 'desc')
             ->get();
 
