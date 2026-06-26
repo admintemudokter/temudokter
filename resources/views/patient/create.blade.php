@@ -200,7 +200,7 @@
                                 {{-- Alamat Lengkap --}}
                                 <div>
                                     <label class="form-label" for="rt_rw">Alamat Lengkap <span class="text-rose-500">*</span></label>
-                                    <input type="text" id="rt_rw" name="rt_rw" maxlength="500" class="form-input" placeholder="Contoh: Jl. Merdeka No. 10, RT 01/RW 02" x-model="form.rt_rw" required>
+                                    <input type="text" id="rt_rw" name="rt_rw" class="form-input" placeholder="Contoh: Jl. Merdeka No. 10, RT 01/RW 02" x-model="form.rt_rw" required>
                                 </div>
                             </div>
                         </div>
