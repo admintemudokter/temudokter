@@ -49,7 +49,7 @@ class FileStorageService
     /**
      * Get the contents of a private file as a response.
      */
-    public function download(string $path, string $filename = null)
+    public function download(string $path, ?string $filename = null)
     {
         if (!Storage::disk(config('filesystems.private_disk'))->exists($path)) {
             abort(404);
