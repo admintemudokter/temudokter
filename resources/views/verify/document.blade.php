@@ -101,7 +101,7 @@
                         @foreach($consultation->prescription->items as $item)
                             <li>
                                 <span class="font-bold text-white">{{ $item->medicine_name }} {{ optional($item->medicine)->bentuk_sediaan ? '(' . optional($item->medicine)->bentuk_sediaan . ')' : '' }}</span><br>
-                                <span class="text-xs text-slate-400">Dosis: {{ $item->dosage }} | {{ $item->notes }}</span>
+                                <span class="text-xs text-slate-400">Aturan: {{ $item->instructions }} {{ $item->notes ? '| ' . $item->notes : '' }}</span>
                             </li>
                         @endforeach
                     </ul>
