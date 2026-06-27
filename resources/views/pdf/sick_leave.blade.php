@@ -169,8 +169,6 @@
                 @endif
             </td>
             <td style="width: 70%; vertical-align: bottom; padding-bottom: 5px;">
-                <div style="text-align: right; color: #1a4a4d; font-weight: bold; font-size: 20px; margin-bottom: 15px;">Temu Dokter</div>
-                
                 <table style="width: 100%; font-size: 11px; color: #000; border-collapse: collapse;">
                     <tr>
                         <td style="width: 15%;"></td>
@@ -214,8 +212,8 @@
                 </td>
                 <td style="width: 25%;">
                     <div class="lbl">Jenis Kelamin :</div>
-                    <div class="input-line val-text" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
-                        @if(strtolower($consultation->patient->gender) == 'laki-laki') L @else P @endif
+                    <div class="input-line val-text" style="text-align: center; text-transform: capitalize;">
+                        {{ $consultation->patient->gender }}
                     </div>
                 </td>
             </tr>
