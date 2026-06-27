@@ -88,7 +88,7 @@
                         @if(in_array($consultation->transaction->payment_status, ['paid', 'approved']))
                         <div class="pt-4 mt-4 border-t border-slate-100 flex flex-col gap-2">
                             <a href="{{ URL::signedRoute('files.receipt', ['transaction' => $consultation->transaction->id]) }}" target="_blank" class="btn w-full bg-brand-600 text-white hover:bg-brand-700 border-0 btn-sm shadow-sm">
-                                📥 Unduh Kwitansi
+                                📥 Unduh Kuitansi
                             </a>
                         </div>
                         @endif
