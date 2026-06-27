@@ -329,7 +329,7 @@
                             <select x-model="item.medicine_id" class="form-select" required>
                                 <option value="">Pilih Obat...</option>
                                 <template x-for="med in medicines" :key="med.id">
-                                    <option :value="med.id" x-text="med.name"></option>
+                                    <option :value="med.id" x-text="med.name + (med.bentuk_sediaan ? ' (' + med.bentuk_sediaan + ')' : '')"></option>
                                 </template>
                             </select>
                         </div>

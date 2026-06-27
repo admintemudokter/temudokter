@@ -249,7 +249,7 @@
             <tbody>
                 @foreach($prescription->items as $item)
                 <tr style="border-bottom: 1px solid #87b0b0;">
-                    <td style="padding: 10px; font-weight: bold;">{{ $item->medicine_name }}<br><span style="font-weight: normal; font-size: 10px; color: #555;">(Jumlah: {{ $item->quantity }})</span></td>
+                    <td style="padding: 10px; font-weight: bold;">{{ $item->medicine_name }} {{ optional($item->medicine)->bentuk_sediaan ? '(' . optional($item->medicine)->bentuk_sediaan . ')' : '' }}<br><span style="font-weight: normal; font-size: 10px; color: #555;">(Jumlah: {{ $item->quantity }})</span></td>
                     <td style="padding: 10px;">{{ $item->kegunaan ?: ($item->medicine ? $item->medicine->description : '-') }}</td>
                     <td style="padding: 10px;">{{ $item->instructions }}</td>
                     <td style="padding: 10px;">{{ $item->notes ?? '-' }}</td>

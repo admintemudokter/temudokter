@@ -157,7 +157,7 @@
         document.getElementById('edit-name').value = name;
         document.getElementById('edit-bentuk').value = bentuk;
         document.getElementById('edit-description').value = desc;
-        document.getElementById('form-edit').action = '/admin/medicine/' + id;
+        document.getElementById('form-edit').action = '/admin/obat/' + id;
         document.getElementById('modal-edit').showModal();
     }
 </script>

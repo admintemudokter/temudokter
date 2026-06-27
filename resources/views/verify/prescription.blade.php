@@ -61,7 +61,7 @@
                 
                 @foreach($prescription->items as $item)
                 <div class="bg-slate-900 rounded-lg p-3 border border-slate-800">
-                    <div class="font-bold text-slate-200">{{ $item->medicine_name }}</div>
+                    <div class="font-bold text-slate-200">{{ $item->medicine_name }} {{ optional($item->medicine)->bentuk_sediaan ? '(' . optional($item->medicine)->bentuk_sediaan . ')' : '' }}</div>
                     <div class="text-slate-400 mt-1">Jumlah: {{ $item->quantity }}</div>
                     <div class="text-slate-400">Aturan: {{ $item->instructions }}</div>
                     @if($item->notes)
