@@ -56,6 +56,10 @@
         <p>Tidak ada resep atau dokumen medis tambahan yang dilampirkan oleh dokter pada konsultasi ini.</p>
         @endif
 
+        <div style="background-color: #fffbeb; padding: 10px 15px; border-left: 4px solid #f59e0b; border-radius: 4px; margin: 20px 0; font-size: 13px; color: #92400e;">
+            <strong>Catatan:</strong> Email ini berlaku selama 3 hari. Silakan segera menyimpan atau mengunduh data yang diperlukan sebelum masa berlaku berakhir. Terima kasih.
+        </div>
+
         <br>
         <p>Semoga lekas sembuh!<br>
         <strong>Tim Temu Dokter</strong></p>
