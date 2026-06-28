@@ -44,9 +44,10 @@ class ConsultationService
         $doctor->update(['status' => 'busy']);
 
         $jenisLayanan = $consultation->type === 'homecare' ? 'kunjungan' : 'konsultasi';
+        $title = preg_match('/^dr\.?\s+/i', $doctor->name) ? '' : 'Dr. ';
         $this->addSystemMessage(
             $consultation,
-            "Dr. {$doctor->name} telah bergabung. Konsultasi dimulai. Waktu {$jenisLayanan} {$duration} menit."
+            "{$title}{$doctor->name} telah bergabung. Konsultasi dimulai. Waktu {$jenisLayanan} {$duration} menit."
         );
 
         // Auto-Greeting by Doctor
