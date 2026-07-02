@@ -35,8 +35,9 @@ class ConsultationController extends Controller
         $consultation->load(['patient', 'doctor', 'messages', 'prescription']);
 
         $medicines = Medicine::orderBy('name')->get();
+        $treatments = \App\Models\Treatment::orderBy('name')->get();
 
-        return view('doctor.consultation.room', compact('consultation', 'doctor', 'medicines'));
+        return view('doctor.consultation.room', compact('consultation', 'doctor', 'medicines', 'treatments'));
     }
 
     public function end(Request $request, Consultation $consultation)
@@ -180,6 +181,54 @@ class ConsultationController extends Controller
         ]);
 
         return response()->json(['success' => true, 'message' => 'Laporan kunjungan berhasil disimpan.']);
+    }
+
+    public function uploadTreatment(Request $request, Consultation $consultation)
+    {
+        $doctor = auth('doctor')->user();
+        if ($consultation->doctor_id != $doctor->id) abort(403);
+        if ($consultation->type !== 'homecare') abort(403, 'Bukan layanan homecare');
+
+        $data = $request->validate([
+            'items' => 'required|array|min:1',
+            'items.*.treatment_id' => 'required|exists:treatments,id',
+        ]);
+
+        // Delete old items for this consultation (if they want to replace it)
+        \App\Models\ConsultationTreatment::where('consultation_id', $consultation->id)->delete();
+
+        // Add new items
+        foreach ($data['items'] as $item) {
+            $treatment = \App\Models\Treatment::find($item['treatment_id']);
+            \App\Models\ConsultationTreatment::create([
+                'consultation_id' => $consultation->id,
+                'treatment_id' => $treatment->id,
+                'treatment_name' => $treatment->name,
+                'bentuk_sediaan' => $treatment->bentuk_sediaan,
+                'price' => $treatment->price,
+            ]);
+        }
+
+        // Generate PDF
+        $consultation->load(['patient', 'doctor', 'treatments']);
+        $pdf = Pdf::loadView('pdf.treatment', compact('consultation', 'doctor'));
+        
+        $fileName = 'tindakan_' . $consultation->invoice_number . '.pdf';
+        $path = 'treatments/' . $fileName;
+        Storage::disk('private')->put($path, $pdf->output());
+
+        // Send a message to chat
+        Message::create([
+            'consultation_id' => $consultation->id,
+            'sender_type'     => 'doctor',
+            'sender_id'       => $doctor->id,
+            'message'         => "Laporan Tindakan telah diterbitkan. Silakan unduh laporan tindakan Anda.",
+            'attachment'      => $path,
+            'attachment_type' => 'pdf',
+            'is_read'         => false,
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Tindakan berhasil disimpan.']);
     }
 
     // ----------------------------------------------------------------

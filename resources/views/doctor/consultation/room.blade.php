@@ -216,6 +216,17 @@
                 </div>
 
                 @if($consultation->type === 'homecare')
+                {{-- Homecare Treatment Section --}}
+                <div class="pt-4 border-t border-slate-100 space-y-2">
+                    <button @click="showTreatmentModal = true"
+                            class="btn w-full bg-rose-600 text-white hover:bg-rose-700 border-0 text-sm">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                        </svg>
+                        Tindakan
+                    </button>
+                </div>
+
                 {{-- Homecare Report Section --}}
                 <div class="pt-4 border-t border-slate-100">
                     <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Laporan Kunjungan</p>
@@ -395,6 +406,45 @@
     </div>
 </div>
 
+{{-- Treatment Modal (Homecare) --}}
+@if($consultation->type === 'homecare')
+<div x-show="showTreatmentModal" x-transition class="modal-backdrop">
+    <div class="modal-box max-w-2xl">
+        <div class="modal-header">
+            <h3 class="font-heading font-bold text-slate-800">Laporan Tindakan Medis</h3>
+            <button @click="showTreatmentModal = false" class="btn-ghost btn-sm !px-2">✕</button>
+        </div>
+        <div class="modal-body space-y-4 max-h-[60vh] overflow-y-auto">
+            <template x-for="(item, index) in treatmentItems" :key="index">
+                <div class="p-4 border border-slate-200 rounded-xl relative bg-slate-50">
+                    <button x-show="treatmentItems.length > 1" @click="treatmentItems.splice(index, 1)" type="button" class="absolute top-2 right-2 text-rose-500 hover:text-rose-700 p-1">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="form-label">Pilih Tindakan <span class="text-rose-500">*</span></label>
+                            <select x-model="item.treatment_id" class="form-select" required>
+                                <option value="">-- Pilih Tindakan --</option>
+                                @foreach($treatments as $trt)
+                                    <option value="{{ $trt->id }}">{{ $trt->name }} - Rp {{ number_format($trt->price, 0, ',', '.') }} {{ $trt->bentuk_sediaan ? '('.$trt->bentuk_sediaan.')' : '' }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <button @click="treatmentItems.push({ treatment_id: '' })" type="button" class="btn-ghost w-full border border-dashed border-slate-300 text-brand-600 hover:bg-brand-50 hover:border-brand-300">+ Tambah Tindakan Lain</button>
+        </div>
+        <div class="modal-footer">
+            <button @click="showTreatmentModal = false" class="btn-ghost">Batal</button>
+            <button @click="submitTreatment()" :disabled="uploadingTreatment" class="btn flex-shrink-0 bg-rose-600 text-white hover:bg-rose-700 border-0">
+                <span x-text="uploadingTreatment ? 'Menyimpan...' : 'Kirim Laporan Tindakan'"></span>
+            </button>
+        </div>
+    </div>
+</div>
+@endif
+
 {{-- Homecare Report Modal --}}
 @if($consultation->type === 'homecare')
 <div x-show="showReportModal" x-transition class="modal-backdrop">
@@ -441,12 +491,19 @@ function doctorRoom(id, initialStatus, initialRemaining) {
         showEndModal: false,
         showInfoModal: false,
         showPrescriptionModal: false,
+        showSickLeaveModal: false,
+        showReportModal: false,
+        showTreatmentModal: false,
         
         medicines: @js($medicines),
         prescriptionItems: [{ medicine_id: '', quantity: '', kegunaan: '', instructions: '', notes: '' }],
         uploadingPrescription: false,
+        prescriptionNotes: '',
+        prescriptionFile: null,
 
-        showSickLeaveModal: false,
+        treatmentItems: [{ treatment_id: '' }],
+        uploadingTreatment: false,
+
         sickLeave: {
             start_date: '',
             end_date: '',
@@ -454,7 +511,6 @@ function doctorRoom(id, initialStatus, initialRemaining) {
         },
         uploadingSickLeave: false,
         
-        showReportModal: false,
         homecareReport: @js($consultation->homecare_report ?? ''),
         uploadingReport: false,
 
@@ -589,6 +645,28 @@ function doctorRoom(id, initialStatus, initialRemaining) {
                 alert('Terjadi kesalahan.');
             }
             this.uploadingPrescription = false;
+        },
+
+        async submitTreatment() {
+            if (this.treatmentItems.length === 0 || !this.treatmentItems[0].treatment_id) {
+                alert('Silakan pilih minimal 1 tindakan');
+                return;
+            }
+            this.uploadingTreatment = true;
+            try {
+                const res = await postJson(`/doctor/konsultasi/${id}/treatment`, { items: this.treatmentItems });
+                const data = await res.json();
+                if (data.success) {
+                    this.showTreatmentModal = false;
+                    this.treatmentItems = [{ treatment_id: '' }];
+                    this.fetchMessages();
+                } else {
+                    alert(data.error || 'Gagal membuat laporan tindakan');
+                }
+            } catch (err) {
+                alert('Terjadi kesalahan.');
+            }
+            this.uploadingTreatment = false;
         },
 
         async submitSickLeave() {

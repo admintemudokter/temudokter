@@ -163,4 +163,19 @@ class FileController extends Controller
             abort(403);
         }
     }
+    
+    /**
+     * Serve treatment files.
+     */
+    public function treatment($invoice)
+    {
+        $path = 'treatments/tindakan_' . $invoice . '.pdf';
+        
+        $disk = config('filesystems.private_disk');
+        if (!Storage::disk($disk)->exists($path)) {
+            abort(404, 'File Laporan Tindakan tidak ditemukan.');
+        }
+
+        return $this->serveFile($path);
+    }
 }

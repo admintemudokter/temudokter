@@ -108,11 +108,32 @@
                 </div>
             
             @elseif ($type === 'receipt')
+                @php
+                    $finalPrice = $consultation->price ?: 0;
+                    if ($consultation->type === 'homecare' && $consultation->treatments) {
+                        foreach ($consultation->treatments as $treatment) {
+                            $finalPrice += $treatment->price;
+                        }
+                    }
+                @endphp
                 <p class="mb-4">Dokumen ini merupakan <b class="text-white">Kuitansi/Bukti Pembayaran</b> yang sah.</p>
                 <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 text-center">
                     <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Pembayaran</div>
-                    <div class="text-xl font-bold text-emerald-400">Rp {{ number_format($consultation->price, 0, ',', '.') }}</div>
+                    <div class="text-xl font-bold text-emerald-400">Rp {{ number_format($finalPrice, 0, ',', '.') }}</div>
                     <div class="text-xs mt-2 text-slate-400">No. Invoice: {{ $consultation->invoice_number }}</div>
+                </div>
+            
+            @elseif ($type === 'treatment')
+                <p class="mb-4">Dokumen ini berisi <b class="text-white">Laporan Tindakan Medis</b> elektronik yang sah untuk pasien di atas.</p>
+                <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 text-left">
+                    <ul class="list-disc pl-4 space-y-2">
+                        @foreach($consultation->treatments as $item)
+                            <li>
+                                <span class="font-bold text-white">{{ $item->treatment_name }} {{ $item->bentuk_sediaan ? '(' . $item->bentuk_sediaan . ')' : '' }}</span><br>
+                                <span class="text-xs text-slate-400">Biaya: Rp {{ number_format($item->price, 0, ',', '.') }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
         </div>

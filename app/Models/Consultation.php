@@ -87,6 +87,11 @@ class Consultation extends Model
         return $this->hasOne(SickLeave::class);
     }
 
+    public function treatments()
+    {
+        return $this->hasMany(ConsultationTreatment::class);
+    }
+
     // Scopes
     public function scopeActive($query)
     {

@@ -221,14 +221,23 @@
             }
             return $terbilang;
         }
-        $amountWord = trim(terbilang($consultation->price)) . " Rupiah";
         $price = $consultation->price ?: 0;
+        
+        $totalTreatmentPrice = 0;
+        if ($consultation->type === 'homecare' && $consultation->treatments) {
+            foreach ($consultation->treatments as $treatment) {
+                $totalTreatmentPrice += $treatment->price;
+            }
+        }
+        $finalPrice = $price + $totalTreatmentPrice;
+        
+        $amountWord = trim(terbilang($finalPrice)) . " Rupiah";
         
         // Asumsi pajak 11% dari total, atau harga yang ditampilkan adalah total. 
         // Jika harga total adalah X, dan itu sudah termasuk pajak atau tidak ada pajak di sistem, kita bisa asumsikan pajak 0 untuk kesederhanaan,
         // tapi di gambar ada kolom Pajak. Jika tidak ada sistem pajak, kita set 0.
         $tax = 0; 
-        $priceBeforeTax = $price - $tax;
+        $priceBeforeTax = $finalPrice - $tax;
     @endphp
 
     <table class="header align-top">
@@ -297,6 +306,19 @@
                 <td style="text-align: right;">Rp {{ number_format($price, 0, ',', '.') }}.</td>
                 <td style="text-align: right;">Rp {{ number_format($price, 0, ',', '.') }}.</td>
             </tr>
+            @if($consultation->type === 'homecare' && $consultation->treatments)
+                @foreach($consultation->treatments as $treatment)
+                <tr>
+                    <td>
+                        Tindakan Medis / Tambahan<br>
+                        <span style="font-weight: normal; display: inline-block; margin-top: 5px;">{{ $treatment->treatment_name }}</span>
+                    </td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: right;">Rp {{ number_format($treatment->price, 0, ',', '.') }}.</td>
+                    <td style="text-align: right;">Rp {{ number_format($treatment->price, 0, ',', '.') }}.</td>
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 
@@ -309,7 +331,7 @@
                 Total Bayar :
             </td>
             <td style="width: 20%;" class="total-bayar-val">
-                Rp {{ number_format($price, 0, ',', '.') }}.
+                Rp {{ number_format($finalPrice, 0, ',', '.') }}.
             </td>
         </tr>
     </table>

@@ -65,7 +65,15 @@
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between">
                             <span class="text-slate-500">Total</span>
-                            <span class="font-bold text-brand-700">{{ $consultation->transaction->formatted_amount }}</span>
+                            @php
+                                $finalPrice = $consultation->price ?: 0;
+                                if ($consultation->type === 'homecare' && $consultation->treatments) {
+                                    foreach ($consultation->treatments as $treatment) {
+                                        $finalPrice += $treatment->price;
+                                    }
+                                }
+                            @endphp
+                            <span class="font-bold text-brand-700">Rp {{ number_format($finalPrice, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-slate-500">Metode</span>
@@ -146,6 +154,27 @@
                        target="_blank"
                        class="btn w-full bg-blue-600 text-white hover:bg-blue-700 border-0 btn-sm">
                         📥 Unduh Surat Sakit
+                    </a>
+                    @endif
+                </div>
+                @endif
+
+                @if($consultation->treatments->count() > 0)
+                <div class="mt-4 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                        </svg>
+                        <p class="font-semibold text-rose-800 text-sm">Laporan Tindakan Medis Tersedia</p>
+                    </div>
+                    <p class="text-rose-700 text-sm leading-relaxed mb-3">
+                        Terdapat {{ $consultation->treatments->count() }} tindakan medis yang diberikan.
+                    </p>
+                    @if(file_exists(storage_path('app/private/treatments/tindakan_' . $consultation->invoice_number . '.pdf')))
+                    <a href="{{ route('files.treatment', ['invoice' => $consultation->invoice_number]) }}"
+                       target="_blank"
+                       class="btn w-full bg-rose-600 text-white hover:bg-rose-700 border-0 btn-sm">
+                        📥 Unduh Laporan Tindakan
                     </a>
                     @endif
                 </div>

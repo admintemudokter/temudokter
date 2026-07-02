@@ -153,6 +153,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/{medicine}', [\App\Http\Controllers\Admin\MedicineController::class, 'update'])->name('update');
             Route::delete('/{medicine}', [\App\Http\Controllers\Admin\MedicineController::class, 'destroy'])->name('destroy');
         });
+
+        // Treatment Management
+        Route::prefix('treatments')->name('treatment.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\TreatmentController::class, 'index'])->name('index');
+            Route::post('/', [\App\Http\Controllers\Admin\TreatmentController::class, 'store'])->name('store');
+            Route::put('/{treatment}', [\App\Http\Controllers\Admin\TreatmentController::class, 'update'])->name('update');
+            Route::delete('/{treatment}', [\App\Http\Controllers\Admin\TreatmentController::class, 'destroy'])->name('destroy');
+        });
     });
 });
 
@@ -180,6 +188,7 @@ Route::prefix('doctor')->name('doctor.')->group(function () {
             Route::post('/{consultation}/prescription', [DoctorConsultationController::class, 'uploadPrescription'])->name('prescription');
             Route::post('/{consultation}/sick-leave', [DoctorConsultationController::class, 'uploadSickLeave'])->name('sick_leave');
             Route::post('/{consultation}/report', [DoctorConsultationController::class, 'uploadHomecareReport'])->name('report');
+            Route::post('/{consultation}/treatment', [DoctorConsultationController::class, 'uploadTreatment'])->name('treatment');
         });
 
         // Polling API for doctor
@@ -200,6 +209,7 @@ Route::prefix('files')->name('files.')->group(function () {
     Route::get('/payment-proof/{proof}', [FileController::class, 'paymentProof'])->name('proof')->middleware(['signed', 'auth.admin']);
     Route::get('/medical/{patient}/{field}', [FileController::class, 'medicalFile'])->name('medical')->middleware('signed');
     Route::get('/attachment/{message}', [FileController::class, 'chatAttachment'])->name('attachment')->middleware('signed');
+    Route::get('/treatment/{invoice}', [FileController::class, 'treatment'])->name('treatment');
 });
 
 // =============================================================================
