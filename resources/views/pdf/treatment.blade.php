@@ -145,7 +145,7 @@
     <div class="bg-bottom"></div>
 
     @php
-        $verifyUrl = route('verify.document', ['type' => 'prescription', 'invoice' => $consultation->invoice_number]);
+        $verifyUrl = route('verify.document', ['type' => 'treatment', 'invoice' => $consultation->invoice_number]);
         $qrCode = base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(60)->margin(0)->generate($verifyUrl));
         $qrSrc = 'data:image/svg+xml;base64,'.$qrCode;
         
