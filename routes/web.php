@@ -148,6 +148,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Medicine Management
         Route::prefix('obat')->name('medicine.')->group(function () {
+            Route::get('/debug-log', function () {
+                $logFile = storage_path('logs/laravel.log');
+                if (!file_exists($logFile)) return "No log file found.";
+                $lines = file($logFile);
+                return response("<pre>" . implode("", array_slice($lines, -50)) . "</pre>");
+            });
             Route::get('/', [\App\Http\Controllers\Admin\MedicineController::class, 'index'])->name('index');
             Route::post('/', [\App\Http\Controllers\Admin\MedicineController::class, 'store'])->name('store');
             Route::put('/{medicine}', [\App\Http\Controllers\Admin\MedicineController::class, 'update'])->name('update');

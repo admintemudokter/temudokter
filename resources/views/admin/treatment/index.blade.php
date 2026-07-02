@@ -34,7 +34,7 @@
                     <td class="px-6 py-4 text-emerald-600 font-semibold">Rp {{ number_format($treatment->price, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-slate-500">{{ $treatment->description ?: '-' }}</td>
                     <td class="px-6 py-4 text-right space-x-2">
-                        <button onclick="editTreatment({{ $treatment->id }}, '{{ addslashes($treatment->name) }}', '{{ addslashes($treatment->bentuk_sediaan) }}', '{{ $treatment->price }}', '{{ addslashes($treatment->description) }}')" class="text-brand-600 hover:text-brand-800 font-medium">Edit</button>
+                        <button onclick="editTreatment({{ $treatment->id }}, '{{ addslashes($treatment->name ?? '') }}', '{{ addslashes($treatment->bentuk_sediaan ?? '') }}', '{{ $treatment->price }}', '{{ addslashes($treatment->description ?? '') }}')" class="text-brand-600 hover:text-brand-800 font-medium">Edit</button>
                         <form action="{{ route('admin.treatment.destroy', $treatment->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus tindakan ini?');">
                             @csrf
                             @method('DELETE')
