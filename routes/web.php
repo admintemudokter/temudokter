@@ -148,6 +148,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Medicine Management
         Route::prefix('obat')->name('medicine.')->group(function () {
+            Route::get('/autofix', function () {
+                try {
+                    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+                    \Illuminate\Support\Facades\Artisan::call('view:clear');
+                    $output = \Illuminate\Support\Facades\Artisan::output();
+                    return response("<div style='font-family:sans-serif; padding:20px;'><h3>Auto-Fix Berhasil!</h3><p>Sistem telah diperbarui dan cache dibersihkan.</p><pre>{$output}</pre><a href='/admin/treatments'>Kembali ke Master Data Tindakan</a></div>");
+                } catch (\Exception $e) {
+                    return response("<div style='font-family:sans-serif; padding:20px;'><h3>Auto-Fix Gagal:</h3><pre>{$e->getMessage()}</pre></div>");
+                }
+            });
+            
             Route::get('/debug-log', function () {
                 $logFile = storage_path('logs/laravel.log');
                 if (!file_exists($logFile)) return "No log file found.";
