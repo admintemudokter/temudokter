@@ -95,7 +95,8 @@
                 </div>
                 <div>
                     <label class="form-label">Biaya / Harga (Rp) <span class="text-rose-500">*</span></label>
-                    <input type="number" name="price" class="form-input" required min="0" value="0">
+                    <input type="text" id="add-price-display" class="form-input" required value="0" oninput="formatRupiah(this, 'add-price')">
+                    <input type="hidden" name="price" id="add-price" value="0">
                 </div>
                 <div>
                     <label class="form-label">Deskripsi / Keterangan</label>
@@ -149,7 +150,8 @@
                 </div>
                 <div>
                     <label class="form-label">Biaya / Harga (Rp) <span class="text-rose-500">*</span></label>
-                    <input type="number" name="price" id="edit-price" class="form-input" required min="0">
+                    <input type="text" id="edit-price-display" class="form-input" required oninput="formatRupiah(this, 'edit-price')">
+                    <input type="hidden" name="price" id="edit-price">
                 </div>
                 <div>
                     <label class="form-label">Deskripsi / Keterangan</label>
@@ -171,9 +173,22 @@
         document.getElementById('edit-name').value = name;
         document.getElementById('edit-bentuk').value = bentuk;
         document.getElementById('edit-price').value = price;
+        document.getElementById('edit-price-display').value = parseInt(price, 10).toLocaleString('id-ID');
         document.getElementById('edit-description').value = desc;
         document.getElementById('form-edit').action = '/admin/treatments/' + id;
         document.getElementById('modal-edit').showModal();
+    }
+
+    function formatRupiah(element, hiddenId) {
+        let value = element.value.replace(/[^0-9]/g, '');
+        if (!value) {
+            element.value = '';
+            document.getElementById(hiddenId).value = '';
+            return;
+        }
+        let numericValue = parseInt(value, 10);
+        document.getElementById(hiddenId).value = numericValue;
+        element.value = numericValue.toLocaleString('id-ID');
     }
 </script>
 @endsection
