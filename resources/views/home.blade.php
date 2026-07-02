@@ -38,7 +38,7 @@
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                     <div class="flex flex-col text-left leading-tight">
                         <span>Chat Dokter</span>
-                        <span class="text-[4px] font-medium text-rose-100">Jam Layanan (08.00 - 20.00)</span>
+                        <span class="text-[4px] font-medium text-rose-100">(08.00 - 20.00)</span>
                     </div>
                 </a>
                 <a href="{{ route('patient.homecare.create') }}" class="ml-2 px-5 py-2.5 rounded-full text-[14px] font-bold text-purple-600 bg-white hover:bg-purple-50 border border-purple-200 shadow-sm hover:shadow-md transition-all flex items-center gap-2">
