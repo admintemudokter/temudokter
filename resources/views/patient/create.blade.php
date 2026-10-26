@@ -123,17 +123,13 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="age">Usia (Tahun) <span class="text-rose-500">*</span></label>
-                                    <div class="relative">
-                                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="age" name="age"
-                                               class="form-input pr-12 @error('age') border-rose-400 @enderror bg-slate-50 font-semibold"
-                                               placeholder="Otomatis"
-                                               value="{{ old('age') }}"
-                                               x-model="form.age"
-                                               readonly
-                                               required>
-                                        <span class="absolute right-3 top-2.5 text-xs font-semibold text-slate-500">Thn</span>
-                                    </div>
-                                    <p class="text-[11px] text-emerald-600 font-medium mt-1" x-show="form.age">Otomatis terhitung: <span x-text="form.age"></span> Thn</p>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" id="age" name="age"
+                                           class="form-input @error('age') border-rose-400 @enderror bg-slate-50 font-semibold"
+                                           placeholder="Otomatis"
+                                           value="{{ old('age') }}"
+                                           x-model="form.age"
+                                           readonly
+                                           required>
                                     @error('age') <p class="form-error">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
