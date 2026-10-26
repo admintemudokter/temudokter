@@ -253,10 +253,10 @@
             <tr>
                 <td style="width: 33%; padding-right: 15px;">
                     <div class="lbl" style="margin-bottom: 5px;">Perlu istirahat selama</div>
-                    <table style="width: 100%;">
+                    <table style="border-collapse: collapse;">
                         <tr>
-                            <td class="input-line val-text" style="text-align: left; padding-left: 5px; padding-top: 0; padding-bottom: 2px;">{{ $days }}</td>
-                            <td style="width: 35px; text-align: right; padding-top: 0; padding-bottom: 2px; font-weight: bold; color: #1a4a4d;">Hari</td>
+                            <td class="input-line val-text" style="width: 55px; text-align: center; padding-top: 0; padding-bottom: 2px;">{{ $days }}</td>
+                            <td style="padding-left: 8px; padding-top: 0; padding-bottom: 2px; font-weight: bold; color: #1a4a4d; white-space: nowrap;">Hari</td>
                         </tr>
                     </table>
                 </td>
