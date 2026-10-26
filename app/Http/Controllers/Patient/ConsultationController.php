@@ -41,7 +41,8 @@ class ConsultationController extends Controller
             'full_name'            => 'required|string|max:150',
             'email'                => 'nullable|email|max:255',
             'whatsapp_number'      => 'required|string|max:20',
-            'age'                  => 'required|integer|min:1|max:120',
+            'date_of_birth'        => 'required|date|before:today',
+            'age'                  => 'required|integer|min:0|max:120',
             'gender'               => 'required|in:laki-laki,perempuan',
             'occupation'           => 'nullable|string|max:100',
             'province'             => 'required|string|max:100',
@@ -62,10 +63,13 @@ class ConsultationController extends Controller
             'max.file' => 'Ukuran file :attribute maksimal 2MB.',
             'in' => 'Pilihan :attribute tidak valid.',
             'integer' => 'Kolom :attribute harus berupa angka.',
-            'email' => 'Format email tidak valid.'
+            'email' => 'Format email tidak valid.',
+            'before' => 'Kolom :attribute harus sebelum hari ini.',
+            'date' => 'Format :attribute tidak valid.'
         ], [
             'full_name' => 'Nama Lengkap',
             'whatsapp_number' => 'Nomor WhatsApp',
+            'date_of_birth' => 'Tanggal Lahir',
             'age' => 'Usia',
             'gender' => 'Jenis Kelamin',
             'occupation' => 'Pekerjaan',
@@ -93,12 +97,15 @@ class ConsultationController extends Controller
             $medicalDocument = $stored['path'];
         }
 
+        $dob = \Carbon\Carbon::parse($data['date_of_birth']);
+        $age = isset($data['age']) && is_numeric($data['age']) ? (int) $data['age'] : $dob->age;
+
         // Create patient with a session token
-        $patient = Patient::create([
+        $patientData = [
             'full_name'             => strip_tags($data['full_name']),
             'email'                 => $data['email'] ?? null,
             'whatsapp_number'       => $data['whatsapp_number'],
-            'age'                   => $data['age'],
+            'age'                   => $age,
             'gender'                => $data['gender'],
             'occupation'            => strip_tags($data['occupation'] ?? null) ?: '-',
             'province'              => strip_tags($data['province']),
@@ -111,7 +118,12 @@ class ConsultationController extends Controller
             'medical_image'         => $medicalImage,
             'medical_document'      => $medicalDocument,
             'session_token'         => Str::uuid(),
-        ]);
+        ];
+        if (\Illuminate\Support\Facades\Schema::hasColumn('patients', 'date_of_birth')) {
+            $patientData['date_of_birth'] = $data['date_of_birth'];
+        }
+
+        $patient = Patient::create($patientData);
 
         // Generate invoice
         $invoiceNumber = $this->invoiceService->generate();
@@ -157,7 +169,8 @@ class ConsultationController extends Controller
             'full_name'            => 'required|string|max:150',
             'email'                => 'nullable|email|max:255',
             'whatsapp_number'      => 'required|string|max:20',
-            'age'                  => 'required|integer|min:1|max:120',
+            'date_of_birth'        => 'required|date|before:today',
+            'age'                  => 'required|integer|min:0|max:120',
             'gender'               => 'required|in:laki-laki,perempuan',
             'occupation'           => 'nullable|string|max:100',
             'province'             => 'required|string|max:100',
@@ -178,10 +191,13 @@ class ConsultationController extends Controller
             'max.file' => 'Ukuran file :attribute maksimal 2MB.',
             'in' => 'Pilihan :attribute tidak valid.',
             'integer' => 'Kolom :attribute harus berupa angka.',
-            'email' => 'Format email tidak valid.'
+            'email' => 'Format email tidak valid.',
+            'before' => 'Kolom :attribute harus sebelum hari ini.',
+            'date' => 'Format :attribute tidak valid.'
         ], [
             'full_name' => 'Nama Lengkap',
             'whatsapp_number' => 'Nomor WhatsApp',
+            'date_of_birth' => 'Tanggal Lahir',
             'age' => 'Usia',
             'gender' => 'Jenis Kelamin',
             'occupation' => 'Pekerjaan',
@@ -211,12 +227,15 @@ class ConsultationController extends Controller
             $medicalDocument = $stored['path'];
         }
 
+        $dob = \Carbon\Carbon::parse($data['date_of_birth']);
+        $age = isset($data['age']) && is_numeric($data['age']) ? (int) $data['age'] : $dob->age;
+
         // Create patient with a session token
-        $patient = Patient::create([
+        $patientData = [
             'full_name'             => strip_tags($data['full_name']),
             'email'                 => $data['email'] ?? null,
             'whatsapp_number'       => $data['whatsapp_number'],
-            'age'                   => $data['age'],
+            'age'                   => $age,
             'gender'                => $data['gender'],
             'occupation'            => strip_tags($data['occupation'] ?? null) ?: '-',
             'province'              => strip_tags($data['province']),
@@ -231,7 +250,12 @@ class ConsultationController extends Controller
             'medical_image'         => $medicalImage,
             'medical_document'      => $medicalDocument,
             'session_token'         => Str::uuid(),
-        ]);
+        ];
+        if (\Illuminate\Support\Facades\Schema::hasColumn('patients', 'date_of_birth')) {
+            $patientData['date_of_birth'] = $data['date_of_birth'];
+        }
+
+        $patient = Patient::create($patientData);
 
         $invoiceNumber = $this->invoiceService->generate();
 

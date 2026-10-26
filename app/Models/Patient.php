@@ -12,6 +12,7 @@ class Patient extends Model
         'full_name',
         'email',
         'whatsapp_number',
+        'date_of_birth',
         'age',
         'gender',
         'occupation',
@@ -26,6 +27,10 @@ class Patient extends Model
         'medical_image',
         'medical_document',
         'session_token',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
     // Relationships
@@ -46,6 +51,18 @@ class Patient extends Model
             'perempuan'  => 'Perempuan',
             default      => '-',
         };
+    }
+
+    public function getFormattedDateOfBirthAttribute(): string
+    {
+        if ($this->date_of_birth) {
+            return \Carbon\Carbon::parse($this->date_of_birth)->translatedFormat('d M Y');
+        }
+        if ($this->age) {
+            $baseDate = $this->created_at ?? now();
+            return \Carbon\Carbon::parse($baseDate)->subYears((int) $this->age)->translatedFormat('d M Y');
+        }
+        return '-';
     }
 
     public function getFullAddressAttribute(): string

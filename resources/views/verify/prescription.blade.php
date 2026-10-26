@@ -28,15 +28,15 @@
             <div class="space-y-3 text-sm border-b border-slate-800 pb-6 mb-6">
                 <div class="flex">
                     <div class="w-32 text-slate-500 font-medium">KLINIK</div>
-                    <div class="text-slate-200">: KONSULKU</div>
+                    <div class="text-slate-200">: TEMU DOKTER</div>
                 </div>
                 <div class="flex">
                     <div class="w-32 text-slate-500 font-medium">NAMA PASIEN</div>
                     <div class="text-slate-200">: {{ $consultation->patient->full_name }}</div>
                 </div>
                 <div class="flex">
-                    <div class="w-32 text-slate-500 font-medium">UMUR</div>
-                    <div class="text-slate-200">: {{ $consultation->patient->age }} Tahun</div>
+                    <div class="w-32 text-slate-500 font-medium">TGL LAHIR / UMUR</div>
+                    <div class="text-slate-200">: {{ $consultation->patient->formatted_date_of_birth }} / {{ $consultation->patient->age }} Tahun</div>
                 </div>
                 <div class="flex">
                     <div class="w-32 text-slate-500 font-medium">NO. INVOICE</div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="flex">
                     <div class="w-32 text-slate-500 font-medium">DOKTER</div>
-                    <div class="text-slate-200">: dr. {{ $consultation->doctor->name }}</div>
+                    <div class="text-slate-200">: dr. {{ optional($consultation->doctor)->name ?? '-' }}</div>
                 </div>
                 <div class="flex">
                     <div class="w-32 text-slate-500 font-medium">STATUS</div>

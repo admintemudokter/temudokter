@@ -208,11 +208,11 @@
                 </td>
                 <td style="width: 30%; padding-right: 15px;">
                     <div class="lbl">Tanggal Lahir / Umur :</div>
-                    <div class="input-line val-text">{{ \Carbon\Carbon::parse($consultation->patient->date_of_birth)->translatedFormat('d M Y') }} / {{ $consultation->patient->age }} Thn</div>
+                    <div class="input-line val-text">{{ $consultation->patient->formatted_date_of_birth }} / {{ $consultation->patient->age }} Thn</div>
                 </td>
                 <td style="width: 25%;">
                     <div class="lbl">Jenis Kelamin :</div>
-                    <div class="input-line val-text" style="text-align: center; text-transform: capitalize;">
+                    <div class="input-line val-text" style="text-align: left; padding-left: 5px; text-transform: capitalize;">
                         {{ $consultation->patient->gender }}
                     </div>
                 </td>
@@ -255,18 +255,18 @@
                     <div class="lbl" style="margin-bottom: 5px;">Perlu istirahat selama</div>
                     <table style="width: 100%;">
                         <tr>
-                            <td class="input-line val-text" style="text-align: center; padding-top: 0; padding-bottom: 2px;">{{ $days }}</td>
-                            <td style="width: 30px; text-align: right; padding-top: 0; padding-bottom: 2px; font-weight: bold; color: #1a4a4d;">Hari</td>
+                            <td class="input-line val-text" style="text-align: left; padding-left: 5px; padding-top: 0; padding-bottom: 2px;">{{ $days }}</td>
+                            <td style="width: 35px; text-align: right; padding-top: 0; padding-bottom: 2px; font-weight: bold; color: #1a4a4d;">Hari</td>
                         </tr>
                     </table>
                 </td>
                 <td style="width: 33%; padding-right: 15px;">
                     <div class="lbl" style="margin-bottom: 5px;">Mulai Tanggal</div>
-                    <div class="input-line val-text" style="text-align: center;">{{ $start }}</div>
+                    <div class="input-line val-text" style="text-align: left; padding-left: 5px;">{{ $start }}</div>
                 </td>
                 <td style="width: 33%;">
                     <div class="lbl" style="margin-bottom: 5px;">Sampai Tanggal</div>
-                    <div class="input-line val-text" style="text-align: center;">{{ $end }}</div>
+                    <div class="input-line val-text" style="text-align: left; padding-left: 5px;">{{ $end }}</div>
                 </td>
             </tr>
         </table>

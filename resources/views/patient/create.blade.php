@@ -107,16 +107,33 @@
                                 </div>
                             </div>
 
-                            {{-- Age & Gender --}}
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {{-- Date of Birth, Age & Gender --}}
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
-                                    <label class="form-label" for="age">Usia <span class="text-rose-500">*</span></label>
-                                    <input type="text" inputmode="numeric" pattern="[0-9]*" id="age" name="age"
-                                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);"
-                                           class="form-input @error('age') border-rose-400 @enderror"
-                                           placeholder="25"
-                                           value="{{ old('age') }}"
-                                           x-model="form.age" required>
+                                    <label class="form-label" for="date_of_birth">Tanggal Lahir <span class="text-rose-500">*</span></label>
+                                    <input type="date" id="date_of_birth" name="date_of_birth"
+                                           max="{{ now()->format('Y-m-d') }}"
+                                           class="form-input @error('date_of_birth') border-rose-400 @enderror"
+                                           value="{{ old('date_of_birth') }}"
+                                           x-model="form.date_of_birth"
+                                           @change="onDobChange()"
+                                           @input="onDobChange()"
+                                           required>
+                                    @error('date_of_birth') <p class="form-error">{{ $message }}</p> @enderror
+                                </div>
+                                <div>
+                                    <label class="form-label" for="age">Usia (Tahun) <span class="text-rose-500">*</span></label>
+                                    <div class="relative">
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="age" name="age"
+                                               class="form-input pr-12 @error('age') border-rose-400 @enderror bg-slate-50 font-semibold"
+                                               placeholder="Otomatis"
+                                               value="{{ old('age') }}"
+                                               x-model="form.age"
+                                               readonly
+                                               required>
+                                        <span class="absolute right-3 top-2.5 text-xs font-semibold text-slate-500">Thn</span>
+                                    </div>
+                                    <p class="text-[11px] text-emerald-600 font-medium mt-1" x-show="form.age">Otomatis terhitung: <span x-text="form.age"></span> Thn</p>
                                     @error('age') <p class="form-error">{{ $message }}</p> @enderror
                                 </div>
                                 <div>
@@ -137,7 +154,7 @@
                                     <div class="mt-2 flex items-center gap-2">
                                         <input type="checkbox" id="no_occupation" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" 
                                                x-model="form.no_occupation" @change="if(form.no_occupation) form.occupation = '-'; else if(form.occupation === '-') form.occupation = '';">
-                                        <label for="no_occupation" class="text-sm text-slate-600 cursor-pointer">Tidak memiliki pekerjaan / Mengurus Rumah Tangga</label>
+                                        <label for="no_occupation" class="text-sm text-slate-600 cursor-pointer">Tidak bekerja / IRT</label>
                                     </div>
                                     @error('occupation') <p class="form-error">{{ $message }}</p> @enderror
                                 </div>
@@ -546,6 +563,7 @@ function consultationForm() {
         form: {
             full_name: @js(old('full_name', '')),
             whatsapp_number: @js(old('whatsapp_number', '')),
+            date_of_birth: @js(old('date_of_birth', '')),
             age: @js(old('age', '')),
             gender: @js(old('gender', '')),
             occupation: @js(old('occupation', '')),
@@ -561,6 +579,23 @@ function consultationForm() {
         },
         init() {
             this.fetchProvinces();
+            if (this.form.date_of_birth && !this.form.age) {
+                this.onDobChange();
+            }
+        },
+        onDobChange() {
+            if (!this.form.date_of_birth) return;
+            const today = new Date();
+            const dob = new Date(this.form.date_of_birth);
+            if (isNaN(dob.getTime())) return;
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            if (age >= 0 && age <= 120) {
+                this.form.age = age;
+            }
         },
         async fetchProvinces() {
             try {
@@ -632,8 +667,8 @@ function consultationForm() {
         },
         nextStep() {
             if (this.step === 1) {
-                if (!this.form.full_name || !this.form.whatsapp_number || !this.form.age || !this.form.gender || (!this.form.occupation && !this.form.no_occupation) || !this.form.province || !this.form.city || !this.form.district || !this.form.village || !this.form.rt_rw) {
-                    alert('Mohon lengkapi semua field Data Diri dan Alamat Lengkap.');
+                if (!this.form.full_name || !this.form.whatsapp_number || !this.form.date_of_birth || this.form.age === '' || !this.form.gender || (!this.form.occupation && !this.form.no_occupation) || !this.form.province || !this.form.city || !this.form.district || !this.form.village || !this.form.rt_rw) {
+                    alert('Mohon lengkapi semua field Data Diri (termasuk Tanggal Lahir) dan Alamat Lengkap.');
                     return;
                 }
             }

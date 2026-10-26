@@ -24,6 +24,7 @@
             if ($type === 'sick-leave') $title = 'SURAT SAKIT';
             elseif ($type === 'prescription') $title = 'RESEP OBAT';
             elseif ($type === 'receipt') $title = 'KUITANSI';
+            elseif ($type === 'treatment') $title = 'LAPORAN TINDAKAN';
 
             // Mask name (e.g. Budi Santoso -> BU** *******)
             $nameParts = explode(' ', $consultation->patient->full_name);
@@ -56,8 +57,8 @@
                 <div class="text-white font-medium">{{ strtoupper($maskedName) }}</div>
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
-                <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Umur :</div>
-                <div class="text-white font-medium">{{ $consultation->patient->age }} Tahun</div>
+                <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Tgl Lahir / Umur :</div>
+                <div class="text-white font-medium">{{ $consultation->patient->formatted_date_of_birth }} / {{ $consultation->patient->age }} Tahun</div>
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
                 <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">ID MR :</div>
@@ -69,7 +70,7 @@
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
                 <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Penanggung Jawab :</div>
-                <div class="text-white font-medium">{{ $consultation->doctor->name }}</div>
+                <div class="text-white font-medium">{{ optional($consultation->doctor)->name ?? 'Tim Medis Temu Dokter' }}</div>
             </div>
             <div class="grid grid-cols-[140px_auto] gap-2">
                 <div class="text-slate-400 text-right uppercase tracking-wider text-xs font-semibold pt-0.5">Status :</div>

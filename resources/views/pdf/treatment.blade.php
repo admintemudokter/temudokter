@@ -202,11 +202,11 @@
                 </td>
                 <td style="width: 30%; padding-right: 15px;">
                     <div class="lbl">Tanggal Lahir / Umur :</div>
-                    <div class="input-line val-text">{{ \Carbon\Carbon::parse($consultation->patient->date_of_birth)->translatedFormat('d M Y') }} / {{ $consultation->patient->age }} Thn</div>
+                    <div class="input-line val-text">{{ $consultation->patient->formatted_date_of_birth }} / {{ $consultation->patient->age }} Thn</div>
                 </td>
                 <td style="width: 25%;">
                     <div class="lbl">Jenis Kelamin :</div>
-                    <div class="input-line val-text" style="text-align: center; font-weight: bold;">
+                    <div class="input-line val-text" style="text-align: left; padding-left: 5px; font-weight: bold;">
                         @if(strtolower($consultation->patient->gender) == 'laki-laki') Laki-Laki @else Perempuan @endif
                     </div>
                 </td>

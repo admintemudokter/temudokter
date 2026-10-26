@@ -284,7 +284,7 @@
         <div class="title">Kepada :</div>
         <div class="name">{{ $consultation->patient->full_name }}</div>
         <div>{{ $consultation->patient->whatsapp_number }}</div>
-        <div>-</div>
+        <div>{{ $consultation->address ?: ($consultation->patient->full_address ?: '-') }}</div>
     </div>
 
     <table class="items">

@@ -146,6 +146,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{doctor}', [AdminDoctorController::class, 'destroy'])->name('destroy');
         });
 
+        Route::get('/autofix', function () {
+            try {
+                \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+                \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+                \Illuminate\Support\Facades\Artisan::call('view:clear');
+                $output = \Illuminate\Support\Facades\Artisan::output();
+                return response("<div style='font-family:sans-serif; padding:20px;'><h3>Auto-Fix Berhasil!</h3><p>Sistem telah diperbarui dan database telah dimigrasikan.</p><pre>{$output}</pre><a href='/admin/consultation'>Kembali ke Dashboard Admin</a></div>");
+            } catch (\Exception $e) {
+                return response("<div style='font-family:sans-serif; padding:20px;'><h3>Auto-Fix Gagal:</h3><pre>{$e->getMessage()}</pre></div>");
+            }
+        });
+
         // Medicine Management
         Route::prefix('obat')->name('medicine.')->group(function () {
             Route::get('/autofix', function () {
